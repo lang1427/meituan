@@ -252,12 +252,11 @@ export default {
 };
 ```
 
-### 接口签名
-
-`axios.get("http://cp-tools.cn/geo/getPosition?sign=${sign}")`
-
-[签名地址](http://cp-tools.cn/sign)
 
 ### 高德地图
+
+1. 根据经纬度获取 地理位置城市名称：
+   - [百度地图API 逆地理编码](https://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding-abroad)
+   - [自建数据表方式CSDN](https://blog.csdn.net/xiangyuecn/article/details/122961085)
 
 44
