@@ -22,7 +22,36 @@
 incoming request --> nuxtServerInit (Store action) --> middleware (1.nuxt.config.js;2.matching layout;3.matching page & children) --> validate() pages & children --> asyncData() & fetch() --> Render --> middleware
 
 Nuxt with Koa
-`vue init nuxt-community/koa-template <project_name>`
+`npx create-nuxt-app@2.14.0 <project_name>`
+
+[document](https://www.nuxtjs.cn/guide/installation)
+
+```js
+ json_str = fs.readFileSync(path.join(__dirname, './city.json')).toString()
+
+  json = JSON.parse(json_str)
+
+  let str = ""
+
+  for (let key in json) {
+    try {
+      let res = await request.get(`https://${key}.meituan.com/ptapi/recommends`)
+      let data = res.text
+
+      data[key] = json.key
+      str += JSON.stringify(data)
+    } catch (e) {
+      if (!!e.response) {
+        console.log(e.response.request.url)
+      } else {
+        console.log(e)
+      }
+    }
+
+  }
+
+  return ctx.body = str
+```
 
 ```
 ├─ assets // 静态资源文件目录
@@ -252,11 +281,10 @@ export default {
 };
 ```
 
-
 ### 高德地图
 
 1. 根据经纬度获取 地理位置城市名称：
-   - [百度地图API 逆地理编码](https://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding-abroad)
-   - [自建数据表方式CSDN](https://blog.csdn.net/xiangyuecn/article/details/122961085)
+   - [百度地图 API 逆地理编码](https://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding-abroad)
+   - [自建数据表方式 CSDN](https://blog.csdn.net/xiangyuecn/article/details/122961085)
 
 44
