@@ -23,7 +23,10 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    '~assets/less/reset.less',
+    '~assets/less/change_element.less',
+    '~assets/less/common.less'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -53,7 +56,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    transpile: [/^element-ui/],
+    transpile: [/^element-ui/,/^methods-util/],
     /*
     ** You can extend webpack config here
     */
