@@ -19,21 +19,12 @@
             <el-button class="login-btn" type="primary" @click="submitForm('ruleForm')">登录</el-button>
           </el-form-item>
           <el-form-item>
-            <p class="signup-guide">还没有账号？<a href="">免费注册</a></p>
+            <p class="signup-guide">还没有账号？<nuxt-link to="/user/register">免费注册</nuxt-link></p>
           </el-form-item>
         </el-form>
 
-        <div class="user-agreement-wrap">
-          <div class="wrap-tip" ref="agreementTip">请先阅读并勾选用户协议</div>
-          <div class="wrap-text">
-            <el-checkbox v-model="check_license"></el-checkbox>
-            我已阅读并同意<a href="https://rules-center.meituan.com/rules-detail/4" class="j-terms" id="meituanTos"
-              target="_blank">《美团用户协议》</a>
-            <a href="https://rules-center.meituan.com/rules-detail/2" class="j-terms" id="meituanTos"
-              target="_blank">《隐私政策》</a>
-            <br />并授权美团使用该美团账号信息（如昵称、头像、收货地址）进行统一管理
-          </div>
-        </div>
+        <license :check.sync=check_license ref="license"></license>
+
         <div class="oauth-wrapper">
           <h3 class="title-wrapper"><span class="title">用合作网站账号登录</span></h3>
           <div class="oauth cf">
@@ -48,8 +39,12 @@
  
 <script>
 import { isEmail } from 'methods-util'
+import License from '~/components/read_license.vue';
 export default {
   layout: "sign",
+  components: {
+    License
+  },
   data() {
     var checkemail = (rule, value, callback) => {
       if (!value) {
@@ -90,12 +85,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (!this.check_license) {
-            this.$refs.agreementTip.style = "visibility: visible;"
-            setTimeout(() => {
-              this.$refs.agreementTip.style = "visibility: hiddent;"
-            }, 3000)
-          } else {
+          if (this.$refs.license.validatorLicense()) {
             alert("登录")
           }
         } else {
@@ -144,42 +134,6 @@ export default {
       height: 32px;
     }
 
-    .user-agreement-wrap {
-
-      .wrap-tip {
-        width: 140px;
-        height: 26px;
-        line-height: 25px;
-        visibility: hidden;
-        text-align: center;
-        color: #fff;
-        border-radius: 4px;
-        background-color: #222;
-        font-weight: 400;
-        position: relative;
-        opacity: .7;
-        left: 9.5px;
-        top: -5px;
-        font-size: 12px;
-
-        &::after {
-          content: '';
-          position: absolute;
-          top: 13px;
-          left: 10px;
-          width: 0;
-          height: 0;
-          transform: rotate(135deg);
-          border-top: 14px solid #222;
-          border-left: 14px solid transparent;
-        }
-      }
-
-      .wrap-text {
-        margin-left: 20px;
-      }
-    }
-
     .oauth-wrapper {
       margin-top: 25px;
 
@@ -215,16 +169,19 @@ export default {
         float: left;
         margin-right: 20px;
         cursor: pointer;
+
         &.oauth__link--qq {
           background-position: -1250px -599px;
-          &:hover{
+
+          &:hover {
             background-position-y: -617px;
           }
         }
 
         &.oauth__link--weibo {
           background-position: -1250px -635px;
-          &:hover{
+
+          &:hover {
             background-position-y: -653px;
           }
         }

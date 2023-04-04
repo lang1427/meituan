@@ -1,72 +1,114 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        mt_nuxt214
-      </h1>
-      <h2 class="subtitle">
-        My stupendous Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <div>
+    <div class="page index">
+      <div class="index-container">
+        <div class="banner-container clearfix">
+          <div class="left-banner">
+            <category />
+          </div>
+          <div class="right-banner">
+            <banner />
+          </div>
+        </div>
+        <homestay />
+        <recomend />
       </div>
     </div>
+    <navigation />
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import category from '~/components/home/category.vue'
+import banner from '~/components/home/banner.vue'
+import homestay from '~/components/home/homestay.vue'
+import recomend from '~/components/home/recomend.vue'
+import navigation from '~/components/navigation.vue'
 
 export default {
   components: {
-    Logo
+    category,
+    banner,
+    homestay,
+    recomend,
+    navigation
   }
 }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+<style lang="less">
+.page.index {
   text-align: center;
-}
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+  .index-container {
+    margin: 0 auto;
+    width: 1190px;
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
+    .banner-container {
+      width: 1190px;
+      margin: 0 auto;
+      position: relative;
 
-.links {
-  padding-top: 15px;
+      .left-banner {
+        float: left;
+      }
+
+      .right-banner {
+        float: left;
+        margin-left: 10px;
+        margin-top: 10px;
+        position: relative;
+      }
+    }
+  }
+
+  .index-nav-container {
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #fff;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+
+    .title {
+      font-size: 18px;
+      margin-left: 13px;
+      margin-right: 10px;
+    }
+
+    .nav-item {
+      float: left;
+      padding: 0 5px;
+      position: relative;
+      cursor: pointer;
+      text-transform: uppercase;
+
+      &.active:after {
+        position: absolute;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 7px solid #fff;
+        content: " ";
+        display: block;
+        width: 2px;
+        height: 0;
+        top: 37px;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+    }
+
+    .total {
+      float: right;
+      margin-right: 12px;
+
+      a {
+        color: #fff;
+      }
+    }
+  }
 }
 </style>
