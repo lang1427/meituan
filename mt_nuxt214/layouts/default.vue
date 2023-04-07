@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background: #f8f8f8;">
     <headbar />
     <nuxt />
     <c_footer />
@@ -16,4 +16,5 @@ export default {
   }
 }
 </script>
-<style></style>
+<style>
+</style>

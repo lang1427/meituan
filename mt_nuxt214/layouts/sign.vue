@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="background: #fff;">
         <header class="header cf">
             <a class="site-logo" href="/">美团网</a>
         </header>
@@ -27,7 +27,7 @@
     </div>
 </template>
 
-<style lang="less">
+<style lang="less" scoped>
 .header {
     position: relative;
     width: 980px;
