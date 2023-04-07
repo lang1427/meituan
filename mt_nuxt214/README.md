@@ -15,3 +15,15 @@
 
 - node v12.22.1
 - nuxt v2.15.8
+
+## Configuring environment
+
+1. *mt_nuxt214/server*目录下创建*conf.js*文件
+   ```js
+   // conf.js
+   export const DB_host = "127.0.0.1" 
+   export const DB_port = 3360
+   export const DB_sql = ""
+   export const DB_user = "root"
+   export const DB_pwd = ""
+   ```

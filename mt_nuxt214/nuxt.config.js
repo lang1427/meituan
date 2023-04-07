@@ -1,6 +1,7 @@
 
 module.exports = {
   mode: 'universal',
+  telemetry:false, // 关闭 Are you interested in participating? (Y/n)
   /*
   ** Headers of the page
   */

@@ -2,13 +2,36 @@ const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
+const mysql = require("mysql2/promise")
+const CONF = require('./conf')
+
 const app = new Koa()
+
+app.use(async (ctx, next) => {
+
+  // 配置数据库
+  ctx.state.$mysql = await mysql.createPool({
+    host: CONF.MySQL.host,
+    port: CONF.MySQL.port,
+    user: CONF.MySQL.user,
+    password: CONF.MySQL.pwd,
+    database: CONF.MySQL.database,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+  })
+
+  await next()
+})
+
+const geo_router = require("./api/geo")
+app.use(geo_router.routes()).use(geo_router.allowedMethods())
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 config.dev = app.env !== 'production'
 
-async function start () {
+async function start() {
   // Instantiate nuxt.js
   const nuxt = new Nuxt(config)
 
