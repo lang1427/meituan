@@ -1201,7 +1201,6 @@
 export default {
   mounted() {
     let li_dom = this.$refs.categoryContent.querySelectorAll("li")
-    console.log(li_dom)
     for (let i = 0; i < li_dom.length; i++) {
       li_dom[i].onmouseenter = this.mouseEnter
       li_dom[i].onmouseleave = this.mouseLeave

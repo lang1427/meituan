@@ -1,4 +1,5 @@
 const Koa = require('koa')
+const bodyParser = require('koa-bodyparser');
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
@@ -23,6 +24,8 @@ app.use(async (ctx, next) => {
 
   await next()
 })
+
+app.use(bodyParser())
 
 const geo_router = require("./api/geo")
 app.use(geo_router.routes()).use(geo_router.allowedMethods())
