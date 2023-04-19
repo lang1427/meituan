@@ -2,6 +2,7 @@
     <div class="page index">
         <div class="op-area">
             <div class="choose-by-province">
+                <h3 class="l-attr">按省份选择：</h3>&nbsp;&nbsp;
                 <el-select v-model="province_value" placeholder="请选择省份">
                     <el-option v-for="item in province_select" :key="item.id" :label="item.cityname" :value="item.id">
                     </el-option>
@@ -35,14 +36,15 @@
         <div class="alphabet">
             <h3 class="l-attr">按拼音首字母选择：</h3>
             <p class="r-info">
-                <span class="letter" v-for="item in first_letter_arr" :key="item">{{ item }}</span>
+                <span class="letter" v-for="item in first_letter_arr" :key="item" @click="labelFor(item)">{{ item }}</span>
             </p>
         </div>
         <div class="alphabet-city-area">
             <div v-for="item of city_data" :key="item.title" class="city-area" :id="`city-${item.title}`">
                 <span class="city-label">{{ item.title }}</span>
-                <span class="cities" v-for="city of item.items" :key="city.cityname">
-                    <a href="//as.meituan.com" class="link city">{{ city.cityname }}</a>
+                <span class="cities">
+                    <a v-for="city of item.items" :key="city.cityname" href="//as.meituan.com" class="link city">{{
+                        city.cityname }}</a>
                 </span>
             </div>
         </div>
@@ -78,6 +80,9 @@ export default {
             } catch (e) {
                 console.log("get city select failed:", e)
             }
+        },
+        labelFor(letter){
+            this.$router.push(`${this.$route.path}#city-${letter}`)
         }
     },
     watch: {
@@ -140,21 +145,18 @@ export default {
     min-height: 1000px;
     padding: 20px;
 
+    h3.l-attr {
+        vertical-align: middle;
+        font-size: 16px;
+        color: #333;
+        font-weight: 500;
+        display: inline-block;
+    }
+
     .op-area {
         padding-bottom: 30px;
         border-bottom: 1px solid #E5E5E5;
 
-        .l-attr {
-            vertical-align: middle;
-
-            &h3 {
-                font-size: 16px;
-                color: #333;
-                font-weight: 500;
-                vertical-align: top;
-                display: inline-block;
-            }
-        }
 
         .choose-by-province,
         .search {
@@ -243,6 +245,8 @@ export default {
     }
 
     .alphabet-city-area {
+        text-align: left;
+
         .city-area {
             padding: 13px 30px 13px 10px;
             border-radius: 10px;
@@ -267,7 +271,7 @@ export default {
 
             .cities {
                 display: inline-block;
-                max-width: 1065px;
+                max-width: 1062px;
 
                 .city {
                     margin: 10px 20px;
