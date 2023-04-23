@@ -30,3 +30,14 @@
 - shop_id 店铺 id
 
 ### City 表
+
+### 用户表
+
+- id 用户id
+- username 用户昵称
+- email   用户邮箱
+- password  用户密码
+- iphone 用户手机号
+- avatar 用户头像
+- birthday 生日
+- active 是否激活
