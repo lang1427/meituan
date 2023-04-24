@@ -34,13 +34,14 @@ CREATE TABLE mt_product(
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
 
+/* VARCHAR(255): Specified key was too long; max key length is 767 bytes */
 CREATE TABLE mt_users(
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(50) NOT NULL UNIQUE,
-  `email` VARCHAR(255) NOT NULL UNIQUE,
+  `email` VARCHAR(100) NOT NULL UNIQUE,
   `password` VARCHAR(32) NOT NULL,
   `iphone` VARCHAR(11) UNIQUE,
-  `avatar` VARCHAR(255),
+  `avatar` VARCHAR(200), 
   `birthday` DATE,
   `active` TINYINT NOT NULL DEFAULT 0,
   `create_time` INT(11) NOT NULL,
