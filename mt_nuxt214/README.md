@@ -21,9 +21,29 @@
 1. *mt_nuxt214/server*目录下创建*conf.js*文件
    ```js
    // conf.js
-   export const DB_host = "127.0.0.1" 
-   export const DB_port = 3360
-   export const DB_sql = ""
-   export const DB_user = "root"
-   export const DB_pwd = ""
+   module.exports = {
+      MySQL: {
+         host: "127.0.0.1",  // mysql 主机
+         port: 3360, // mysql 端口
+         database: "", // mysql连接的数据库
+         user: "root", // mysql 用户名
+         pwd: "" // mysql 密码
+      },
+      Redis:{
+         host:"127.0.0.1", // redis 主机
+         port:6379  // redis 端口
+      },
+      SMTP:{
+         host:"smtp.qq.com", // 电子邮箱主机
+         port:587, // 电子邮箱端口
+         user:"", // 发件人邮箱
+         pwd:"" // 发件人授权码
+      }
+
+   }
    ```
+
+## Response Code
+   - `-1` 参数验证失败
+   - `0` 数据库读写失败
+   - `1` 成功返回

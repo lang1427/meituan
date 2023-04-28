@@ -1,5 +1,7 @@
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser');
+const session = require('koa-generic-session');
+const redisStore = require('koa-redis');
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
@@ -25,10 +27,23 @@ app.use(async (ctx, next) => {
   await next()
 })
 
+/** 配置redis */
+app.keys = ['mt', parseInt(Math.random() * 1e6).toString()];
+app.use(session({
+  store: redisStore({
+    host: CONF.Redis.host,
+    port: CONF.Redis.port
+  })
+}));
+
 app.use(bodyParser())
 
+/** 注册路由 */
 const geo_router = require("./api/geo")
+const user_router = require("./api/user")
+
 app.use(geo_router.routes()).use(geo_router.allowedMethods())
+app.use(user_router.routes()).use(user_router.allowedMethods())
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
