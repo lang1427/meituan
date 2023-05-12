@@ -86,7 +86,16 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.$refs.license.validatorLicense()) {
-            alert("登录")
+            this.$axios.post('/user/signin', { email: this.ruleForm.email, password: this.ruleForm.pass, readlic: 1 }).then(res => {
+              if (res.data.code === 1) {
+                window.sessionStorage.setItem("token",res.data.token)
+                this.$router.push('/user/info')
+              } else {
+                this.$message({ type: "error", message: res.data.msg })
+              }
+            }, err => {
+              this.$message({ type: "error", message: err })
+            })
           }
         } else {
           return false;

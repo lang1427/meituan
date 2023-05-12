@@ -8,12 +8,12 @@ const Redis = require("ioredis")
 const redis = new Redis()
 
 const { isEmail } = require('methods-util/dist/node/methods_util.cjs')
-const { aesEncode, aesDecode, SmtpServer } = require('../util')
+const { aesEncode, aesDecode, SmtpServer, setToken } = require('../util')
 
 user_router.post('/signup', async ctx => {
-    let { email, password } = ctx.request.body
+    let { email, password, readlic } = ctx.request.body
 
-    if (!email || !password) {
+    if (!email || !password || readlic !== 1) {
         return ctx.body = {
             code: -1
         }
@@ -30,7 +30,6 @@ user_router.post('/signup', async ctx => {
     try {
 
         const [rows] = await ctx.state.$mysql.execute(`INSERT INTO mt_users (username,email,password,create_time) VALUES (?,?,?,?);`, [nickname, email, password, createTime])
-        console.log(rows)
         if (rows.affectedRows === 1) {
             let hashid = aesEncode(`${rows.insertId}_${Date.now()}`).encryptedData
             redis.set(hashid, "1", "EX", 86400)
@@ -62,12 +61,19 @@ user_router.post('/signup', async ctx => {
 
 user_router.get('/active/:hashid', async ctx => {
     try {
-        let result = await redis.get(ctx.params.hashid);
+        let hashid = ctx.params.hashid
+        let result = await redis.get(hashid);
         if (result === null) {
             return ctx.body = `<h1>激活链接已过期</h1>`
         } else {
             // 激活用户 修改用户数据表active的值
-            console.log("result:", result)
+            let decode_str = aesDecode(hashid)
+            let user_id = decode_str.substring(0, decode_str.indexOf('_'))
+            const [rows] = await ctx.state.$mysql.query(`update mt_users set active=1 where id = ? `, user_id)
+            if (rows.changedRows === 0) {
+                return ctx.body = "<h1>已激活，无需再激活了</h1>"
+            }
+            return ctx.body = "<h1>激活成功</h1>"
         }
     } catch (err) {
         console.error(err);
@@ -77,7 +83,43 @@ user_router.get('/active/:hashid', async ctx => {
 })
 
 user_router.post('/signin', async ctx => {
+    let { email, password, readlic } = ctx.request.body
 
+    if (!email || !password || readlic !== 1) {
+        return ctx.body = {
+            code: -1
+        }
+    }
+
+    if (!isEmail(email)) {
+        return ctx.body = {
+            code: -1
+        }
+    }
+
+    try {
+        let [rows] = await ctx.state.$mysql.query(`select id,email,password,active from mt_users where email=? and password=?`, [email, password])
+        if (rows.length === 0) {
+            return ctx.body = {
+                code: 0,
+                msg: "邮箱或密码错误"
+            }
+        }
+        let user = rows[0]
+        if (user.active !== 1) {
+            return ctx.body = {
+                code: 0,
+                msg: "当前用户未激活"
+            }
+        }
+        let token = setToken(Object.assign({ user }, { time: Date.now() }))
+        return ctx.body = {
+            code: 1,
+            token
+        }
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 user_router.post('/signout', async ctx => {

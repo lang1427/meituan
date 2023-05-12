@@ -38,7 +38,8 @@
          port:587, // 电子邮箱端口
          user:"", // 发件人邮箱
          pwd:"" // 发件人授权码
-      }
+      },
+      tokenApi:[]
 
    }
    ```
@@ -47,3 +48,9 @@
    - `-1` 参数验证失败
    - `0` 数据库读写失败
    - `1` 成功返回
+
+
+## 生成秘钥
+
+1. git终端输入命令 `openssl genrsa -out rsa_private_key.pem 2048`
+2. 删除头和尾巴，也就是删除`-----BEGIN PUBLIC KEY-----`和`-----END PUBLIC KEY-----`
