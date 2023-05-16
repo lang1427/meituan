@@ -26,9 +26,9 @@
                         href="https://minsu.meituan.com/housing/17145192/?phx_wake_up_type=mtpc_category&amp;phx_wake_up_source=recommend"
                         target="_blank">
                         <div class="product-card-header"><img
-                                src="https://img.meituan.net/phoenix/abdca88f9ce446ae4f76382ad0b9d9f61906306.jpg@740w_416h_1e_1c"
+                                src="http://47.93.187.37:8000/p0/phoenix/abdca88f9ce446ae4f76382ad0b9d9f61906306.jpg@740w_416h_1e_1c"
                                 class="product-img"><img
-                                src="https://img.meituan.net/avatar/6156acd3c8dbafb92f285c21e0a8ee6a18419.jpg@200w_200h_1e_1c"
+                                src="http://47.93.187.37:8000/p0/avatar/6156acd3c8dbafb92f285c21e0a8ee6a18419.jpg@200w_200h_1e_1c"
                                 alt="" class="head-img"></div>
                         <div class="product-info">
                             <p class="product-title">豪华公寓，交通方便，公交，地铁都很近，旁边小吃，购物都很方便</p>
@@ -40,9 +40,9 @@
                         href="https://minsu.meituan.com/housing/10219632/?phx_wake_up_type=mtpc_category&amp;phx_wake_up_source=recommend"
                         target="_blank">
                         <div class="product-card-header"><img
-                                src="http://p0.meituan.net/iphoenix/ce1c073eb88c689d2aeb3014b0d379881344986.jpg@740w_416h_1e_1c"
+                                src="http://47.93.187.37:8000/img/iphoenix/ce1c073eb88c689d2aeb3014b0d379881344986.jpg@740w_416h_1e_1c"
                                 class="product-img"><img
-                                src="https://img.meituan.net/avatar/c99c61f17d9b86a0f4b8e9c6c9cd404077198.jpg@200w_200h_1e_1c"
+                                src="http://47.93.187.37:8000/p0/avatar/c99c61f17d9b86a0f4b8e9c6c9cd404077198.jpg@200w_200h_1e_1c"
                                 alt="" class="head-img"></div>
                         <div class="product-info">
                             <p class="product-title">【简宿】深圳横岗塘坑/城中村/塘坑地铁站/2013广场天虹/简约一居室LOFT/长租优惠/可做饭</p>
@@ -54,9 +54,9 @@
                         href="https://minsu.meituan.com/housing/14869948/?phx_wake_up_type=mtpc_category&amp;phx_wake_up_source=recommend"
                         target="_blank">
                         <div class="product-card-header"><img
-                                src="https://img.meituan.net/phoenix/fa59ad1ed834c179399423d7543073a66774503.jpg@740w_416h_1e_1c"
+                                src="http://47.93.187.37:8000/p0/phoenix/fa59ad1ed834c179399423d7543073a66774503.jpg@740w_416h_1e_1c"
                                 class="product-img"><img
-                                src="https://img.meituan.net/avatar/17ab51e7d0a5eaec4d53ef4cff62379315731.jpg@200w_200h_1e_1c"
+                                src="http://47.93.187.37:8000/p0/avatar/17ab51e7d0a5eaec4d53ef4cff62379315731.jpg@200w_200h_1e_1c"
                                 alt="" class="head-img"></div>
                         <div class="product-info">
                             <p class="product-title">深圳北站/68民宿1大别墅近龙华中学</p>
@@ -68,9 +68,9 @@
                         href="https://minsu.meituan.com/housing/16119517/?phx_wake_up_type=mtpc_category&amp;phx_wake_up_source=recommend"
                         target="_blank">
                         <div class="product-card-header"><img
-                                src="https://p0.meituan.net/iphoenix/b74c4ccc0eaa918744a8a3d7e7e9aaa3185159.jpg@740w_416h_1e_1c"
+                                src="http://47.93.187.37:8000/img/iphoenix/b74c4ccc0eaa918744a8a3d7e7e9aaa3185159.jpg@740w_416h_1e_1c"
                                 class="product-img"><img
-                                src="https://img.meituan.net/avatar/743755d0357f630c0a0be13329504fb440925.jpg@200w_200h_1e_1c"
+                                src="http://47.93.187.37:8000/p0/avatar/743755d0357f630c0a0be13329504fb440925.jpg@200w_200h_1e_1c"
                                 alt="" class="head-img"></div>
                         <div class="product-info">
                             <p class="product-title">【钱林住宿】标准大床房（不含空调），近龙华富士康北大门/清湖地铁站/华为地体站</p>
@@ -82,9 +82,9 @@
                         href="https://minsu.meituan.com/housing/18430692/?phx_wake_up_type=mtpc_category&amp;phx_wake_up_source=recommend"
                         target="_blank">
                         <div class="product-card-header"><img
-                                src="https://p0.meituan.net/iphoenix/fe74d9f7ef57d54bab8d0a5db73e13261403362.jpg@740w_416h_1e_1c"
+                                src="http://47.93.187.37:8000/img/iphoenix/fe74d9f7ef57d54bab8d0a5db73e13261403362.jpg@740w_416h_1e_1c"
                                 class="product-img"><img
-                                src="https://img.meituan.net/avatar/a3d8d178c5ce2ab1eaa7bca4791c5cd1103912.jpg@200w_200h_1e_1c"
+                                src="http://47.93.187.37:8000/p0/avatar/a3d8d178c5ce2ab1eaa7bca4791c5cd1103912.jpg@200w_200h_1e_1c"
                                 alt="" class="head-img"></div>
                         <div class="product-info">
                             <p class="product-title">（设计师私享家民宿）大床房近大运体育馆</p>
@@ -96,9 +96,9 @@
                         href="https://minsu.meituan.com/housing/17596620/?phx_wake_up_type=mtpc_category&amp;phx_wake_up_source=recommend"
                         target="_blank">
                         <div class="product-card-header"><img
-                                src="https://p0.meituan.net/iphoenix/cb058fd55c77cbf46094e52fd04e35aa1188986.jpg@740w_416h_1e_1c"
+                                src="http://47.93.187.37:8000/img/iphoenix/cb058fd55c77cbf46094e52fd04e35aa1188986.jpg@740w_416h_1e_1c"
                                 class="product-img"><img
-                                src="https://img.meituan.net/avatar/dcdb675fff36dd400b8d7ad90a105732230552.jpg@200w_200h_1e_1c"
+                                src="http://47.93.187.37:8000/p0/avatar/dcdb675fff36dd400b8d7ad90a105732230552.jpg@200w_200h_1e_1c"
                                 alt="" class="head-img"></div>
                         <div class="product-info">
                             <p class="product-title">亚丁公寓|龙华地铁站步行五分钟|壹方城购物中心|实验学校|华富市场|周边生活购物皆便利|简约一房</p>

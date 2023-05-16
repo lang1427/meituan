@@ -19,7 +19,7 @@
                                 <div class="order-img"><a href="https://www.meituan.com/order/view/4917957575457151746/"
                                         class="link" target="_blank">
                                         <div><img
-                                                src="//p0.meituan.net/deal/886f6e992fa7a93dd9d32239fd7063021369617.png@0_0_1151_698a|388h_640w_2e_90Q|90w_90h_1e_1c"
+                                                src="http://47.93.187.37:8000/img/deal/886f6e992fa7a93dd9d32239fd7063021369617.png@0_0_1151_698a|388h_640w_2e_90Q|90w_90h_1e_1c"
                                                 class="image"></div>
                                     </a></div>
                                 <div class="order-info">
@@ -41,7 +41,7 @@
                                 <div class="order-img"><a href="http://maoyan.com/order/detail/22862150453/" class="link"
                                         target="_blank">
                                         <div><img
-                                                src="//p0.meituan.net/movie/86589f4b2a96a7b95b84c822cc479ec73461207.jpg@90w_90h_1e_1c"
+                                                src="http://47.93.187.37:8000/img/movie/86589f4b2a96a7b95b84c822cc479ec73461207.jpg@90w_90h_1e_1c"
                                                 class="image"></div>
                                     </a></div>
                                 <div class="order-info">
@@ -64,7 +64,7 @@
                                 <div class="order-img"><a href="http://maoyan.com/order/detail/22428308033/" class="link"
                                         target="_blank">
                                         <div><img
-                                                src="//p1.meituan.net/moviemachine/fdd380fb2f7f0f1742f9f7c8ae7c5fec7189073.jpg@90w_90h_1e_1c"
+                                                src="http://47.93.187.37:8000/p1/moviemachine/fdd380fb2f7f0f1742f9f7c8ae7c5fec7189073.jpg@90w_90h_1e_1c"
                                                 class="image"></div>
                                     </a></div>
                                 <div class="order-info">

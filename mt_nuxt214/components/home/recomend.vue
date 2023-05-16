@@ -12,7 +12,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p0.meituan.net/merchantpic/474c438192674f2cc8113841f8b8052b2097202.jpg@214w_120h_1e_1c"
+                                src="http://47.93.187.37:8000/img/merchantpic/474c438192674f2cc8113841f8b8052b2097202.jpg@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="CN纹身·设计定制（太古汇店）">CN纹身·设计定制（太古汇店）</div>
@@ -53,7 +53,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p0.meituan.net/biztone/1903294567_1676980064757.jpeg@214w_120h_1e_1c" class="image">
+                                src="http://47.93.187.37:8000/img/biztone/1903294567_1676980064757.jpeg@214w_120h_1e_1c" class="image">
                         </div>
                         <div class="info-box">
                             <div class="title aligned" title="一绪に和牛寿喜烧放题（天河城店）">一绪に和牛寿喜烧放题（天河城店）</div>
@@ -94,7 +94,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p1.meituan.net/biztone/2bfb8ea09a70cffdfcbae6c15a41f088511309.jpg@214w_120h_1e_1c"
+                                src="http://47.93.187.37:8000/p1/biztone/2bfb8ea09a70cffdfcbae6c15a41f088511309.jpg@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="TANING手打柠檬茶（祈福缤纷店）">TANING手打柠檬茶（祈福缤纷店）</div>
@@ -135,7 +135,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p1.meituan.net/msmerchant/269cb077037a0593c83ac82c07636032439729.jpg@214w_120h_1e_1c"
+                                src="http://47.93.187.37:8000/p1/msmerchant/269cb077037a0593c83ac82c07636032439729.jpg@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="欢乐烧烤场">欢乐烧烤场</div>
@@ -174,7 +174,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p1.meituan.net/dpmerchantpic/253cfa42ad4fe84c0ac1df8329dc3ea21389702.jpg@214w_120h_1e_1c"
+                                src="http://47.93.187.37:8000/p1/dpmerchantpic/253cfa42ad4fe84c0ac1df8329dc3ea21389702.jpg@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="Sj·肆季美甲店">Sj·肆季美甲店</div>
@@ -215,7 +215,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p0.meituan.net/biztone/a4d0bdaa04cf5c775eb0ea2e5dee7fa1397181.jpg@214w_120h_1e_1c"
+                                src="http://47.93.187.37:8000/img/biztone/a4d0bdaa04cf5c775eb0ea2e5dee7fa1397181.jpg@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="酒拾烤肉（从化店）">酒拾烤肉（从化店）</div>
@@ -256,7 +256,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p0.meituan.net/msmerchant/7aa9cd2bb0646f23a5382cda73301c2e1749436.jpg@214w_120h_1e_1c"
+                                src="http://47.93.187.37:8000/img/msmerchant/7aa9cd2bb0646f23a5382cda73301c2e1749436.jpg@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="冠菌自助火锅（增城万达店）">冠菌自助火锅（增城万达店）</div>
@@ -297,7 +297,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p1.meituan.net/merchantpic/32e11818f859ae3b537fcdbaa9aa5d1c378231.jpg@214w_120h_1e_1c"
+                                src="http://47.93.187.37:8000/p1/merchantpic/32e11818f859ae3b537fcdbaa9aa5d1c378231.jpg@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="阑珊处（同和店）">阑珊处（同和店）</div>
@@ -338,7 +338,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p1.meituan.net/merchant/3f636c6e47a9db1769dbd7f5ec7f63c8292303.jpg@214w_120h_1e_1c"
+                                src="http://47.93.187.37:8000/p1/merchant/3f636c6e47a9db1769dbd7f5ec7f63c8292303.jpg@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="點點叙（万科广场店）">點點叙（万科广场店）</div>
@@ -379,7 +379,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p1.meituan.net/dpmerchantpic/ff9d4ca42600c1b5442d27352b7145ff48473.jpg@214w_120h_1e_1c"
+                                src="http://47.93.187.37:8000/p1/dpmerchantpic/ff9d4ca42600c1b5442d27352b7145ff48473.jpg@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="美肌工坊皮肤管理（万菱汇店）">美肌工坊皮肤管理（万菱汇店）</div>
@@ -419,7 +419,7 @@
                 target="_blank">
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
-                        <div class="img-box"><img src="//p1.meituan.net/biztone/1713427_1677721467985.jpeg@214w_120h_1e_1c"
+                        <div class="img-box"><img src="http://47.93.187.37:8000/p1/biztone/1713427_1677721467985.jpeg@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="无贰自助餐·天河希尔顿（天河北店）">无贰自助餐·天河希尔顿（天河北店）</div>
@@ -460,7 +460,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p0.meituan.net/biztone/3a54eb2ce8ae8c4d9218d6c54e5bd037436365.jpg@214w_120h_1e_1c"
+                                src="http://47.93.187.37:8000/img/biztone/3a54eb2ce8ae8c4d9218d6c54e5bd037436365.jpg@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="Pelicana百利家炸鸡（东方宝泰店）">Pelicana百利家炸鸡（东方宝泰店）</div>
@@ -501,7 +501,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p1.meituan.net/biztone/1844000509_1680145085565.jpeg@214w_120h_1e_1c" class="image">
+                                src="http://47.93.187.37:8000/p1/biztone/1844000509_1680145085565.jpeg@214w_120h_1e_1c" class="image">
                         </div>
                         <div class="info-box">
                             <div class="title aligned" title="木棉·醉心粤味（汉溪长隆店）">木棉·醉心粤味（汉溪长隆店）</div>
@@ -542,7 +542,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p0.meituan.net/biztone/e1f77b288b152ed6123ab08d9fbcaac2149588.png@214w_120h_1e_1c"
+                                src="http://47.93.187.37:8000/img/biztone/e1f77b288b152ed6123ab08d9fbcaac2149588.png@214w_120h_1e_1c"
                                 class="image"></div>
                         <div class="info-box">
                             <div class="title aligned" title="尊宝比萨（南村南店）">尊宝比萨（南村南店）</div>
@@ -583,7 +583,7 @@
                 <div class="card-container">
                     <div class="recommend-card-wrapper">
                         <div class="img-box"><img
-                                src="//p1.meituan.net/biztone/1045496149_1654677008583.jpeg@214w_120h_1e_1c" class="image">
+                                src="http://47.93.187.37:8000/p1/biztone/1045496149_1654677008583.jpeg@214w_120h_1e_1c" class="image">
                         </div>
                         <div class="info-box">
                             <div class="title aligned" title="木炭遇上肉·烤肉（萝岗万达店）">木炭遇上肉·烤肉（萝岗万达店）</div>
