@@ -59,7 +59,7 @@ VALUES
 (270787325, "小吃拼盘", "", "10", 1516298, 1684229110),
 (270787322, "太卷", "", "35", 1516298, 1684229110);
 
-INSERT INSERT `mt_product` ( `id`, `title`, `img_url`, `price`, `shop_id`, `create_time`) VALUES
+INSERT INTO `mt_product` ( `id`, `title`, `img_url`, `price`, `shop_id`, `create_time`) VALUES
 (410628969,"厨神冰冰榴莲","http://47.93.187.37:8000/p1/dealwatera/d55983ab182293f3db65acebc8ffafb435555.jpg@600w_600h_1l","27",2639976,1684229110),
 (51618711,"豆鼓蒸凤爪","http://47.93.187.37:8000/p1/poirichness/menu_16973420_672958155.jpg@600w_600h_1l","27",2639976,1684229110),
 (137309010,"厨神水晶虾饺","http://47.93.187.37:8000/p0/wmproduct/fa4ce4baa41c62f42b4e88ac9252f756658761.png@600w_600h_1l","30",2639976,1684229110),
@@ -111,7 +111,7 @@ INSERT INSERT `mt_product` ( `id`, `title`, `img_url`, `price`, `shop_id`, `crea
 (51619008,"健康核桃包","","23",2639976,1684229110),
 (51618968,"咖喱金钱肚","","26",2639976,1684229110);
 
-INSERT INSERT `mt_product` ( `id`, `title`, `img_url`, `price`, `shop_id`, `create_time`) VALUES
+INSERT INTO `mt_product` ( `id`, `title`, `img_url`, `price`, `shop_id`, `create_time`) VALUES
 (267297527,"糖炒板栗糖炒栗子","http://47.93.187.37:8000/p1/sgopen/990c75be9c7ec0eb822ad84308365130130535.jpg@600w_600h_1l","15.8",5613209,1684229110),
 (88169793,"霜糖山楂","http://47.93.187.37:8000/p0/sgopen/985529e686bed6f066d2a84ecff624f71220664.png@600w_600h_1l","11.5",5613209,1684229110),
 (73880923,"冰板栗","http://47.93.187.37:8000/p0/wmproduct/7a855c71ae90d2806ce7bf1587392916311627.jpg@600w_600h_1l","10",5613209,1684229110),
