@@ -9,13 +9,17 @@ CREATE TABLE mt_shop(
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL DEFAULT '',
   `address_desc` VARCHAR(100) NOT NULL DEFAULT '',
-  `cite_id` INT(11) NOT NULL,
+  `city_id` INT(11) NOT NULL,
   `img_url` VARCHAR(50) NOT NULL DEFAULT 'default.png',
   `longitude` VARCHAR(10) NOT NULL,
   `latitude` VARCHAR(10) NOT NULL,
   `phone` VARCHAR(15),
   `open_time` VARCHAR(20),
   `notice` VARCHAR(50),
+  `type` INT(11) NOT NULL,
+  `avgPrice` VARCHAR(10),
+  `avgScore` VARCHAR(3),
+  `commentNum` INT(11) NOT NULL DEFAULT 0,
   `create_time` INT(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
@@ -23,12 +27,8 @@ CREATE TABLE mt_shop(
 CREATE TABLE mt_product(
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL DEFAULT '',
-  `score` VARCHAR(5) NOT NULL DEFAULT '',
-  `img_url` VARCHAR(50) NOT NULL,
-  `lowPrice` VARCHAR(10) NOT NULL,
-  `avgPrice` VARCHAR(10) NOT NULL,
-  `commentNum` INT(11) NOT NULL DEFAULT 0,
-  `category_id` INT(20) NOT NULL,
+  `img_url` VARCHAR(180) NOT NULL,
+  `price` VARCHAR(10) NOT NULL,
   `shop_id` INT(50) NOT NULL,
   `create_time` INT(11) NOT NULL,
   PRIMARY KEY (`id`)

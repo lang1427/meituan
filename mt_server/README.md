@@ -16,17 +16,18 @@
 - phone 联系电话
 - openTime 营业时间
 - notice 公告
+- type 店铺分类
+- avgPrice 平均价位
+- avgScore 平均评分
+- commentNum 评论数
+
 
 ### 产品表
 
 - id 商品 id
 - title 商品名称
-- score 商品评分
-- lowPrice 最低价
-- avgPrice 人均价
 - imgUrl 商品图片
-- commentNum 商品评论数
-- category_id 分类 id
+- price 商品价格
 - shop_id 店铺 id
 
 ### City 表
