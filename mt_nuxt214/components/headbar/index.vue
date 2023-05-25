@@ -4,7 +4,7 @@
             <div class="header-content clearfix">
                 <div class="header-bar-position" style="display: block;">
                     <span class="header-icon el-icon-location-information"></span>
-                    <span class="current-city">广州</span>
+                    <span class="current-city">{{ $store.state.geo.position.city }}</span>
                     <a class="change-city" href="https://www.meituan.com/changecity/">切换城市</a>
                     <div class="near-citys">[<a class="city-guess" href="https://fs.meituan.com">佛山</a><a class="city-guess"
                             href="https://sd.meituan.com">顺德</a><a class="city-guess" href="https://ns.meituan.com">南沙</a>]

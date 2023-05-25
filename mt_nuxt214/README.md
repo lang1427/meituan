@@ -39,6 +39,7 @@
          user:"", // 发件人邮箱
          pwd:"" // 发件人授权码
       },
+      aMapWebApiKEY:"",    // 高德地图Web服务key
       tokenApi:[]
 
    }
