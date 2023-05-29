@@ -56,7 +56,7 @@ module.exports = {
         return decrypted.toString()
     },
     setToken: (data) => {
-       return JWT.sign({ user: data.user }, SecretKey, {
+        return JWT.sign({ user: data.user }, SecretKey, {
             expiresIn: tokenTime
         });
     },
@@ -75,6 +75,27 @@ module.exports = {
         JWT.sign({ user: data.user }, SecretKey, {
             expiresIn: 0
         });
+    },
+    getPosiRange: (longitude, latitude, distince) => {
+        /**
+           * 附近位置最大最小经纬度计算 
+           * @param   longitude  经度
+           * @param   latitude   纬度
+           * @param   distince    距离（千米）
+           * @returns 格式：经度最小值-经度最大值-纬度最小值-纬度最大值
+           */
+        let r = 6371.393;    // 地球半径千米
+        let lng = longitude;
+        let lat = latitude;
+        let dlng = 2 * Math.asin(Math.sin(distince / (2 * r)) / Math.cos(lat * Math.PI / 180));
+        dlng = dlng * 180 / Math.PI;// 角度转为弧度
+        let dlat = distince / r;
+        dlat = dlat * 180 / Math.PI;
+        let minlat = (lat - dlat).toFixed(6);
+        let maxlat = (lat + dlat).toFixed(6);
+        let minlng = (lng - dlng).toFixed(6);
+        let maxlng = (lng + dlng).toFixed(6);
+        return { minlng, maxlng, minlat, maxlat };
     }
 }
 
