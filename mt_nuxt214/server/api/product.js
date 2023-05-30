@@ -63,5 +63,52 @@ product_router.post('/meishi/:id', async ctx => {
     }
 })
 
+product_router.post("/home", async ctx => {
+
+    let { cityname } = ctx.request.body
+    if (!cityname) {
+        return ctx.body = {
+            code: -1,
+            msg: "cityname 为必须参数"
+        }
+    }
+
+    try {
+        // 分类
+        let categoryRes = await ctx.state.$mysql.execute(`select * from mt_category;`)
+        const _tree = (id) => {
+            let data = categoryRes[0].filter(item => {
+                return item.cid == id
+            })
+            data.forEach(item => {
+                item.children = _tree(item.id)
+            })
+            return data
+        }
+        let categoryTree = _tree(null)
+
+        // 推荐
+        let cityRes = await ctx.state.$mysql.execute(`select id,cityname from city where cityname="${cityname}"`)
+        if (cityRes[0].length === 0) {
+            return ctx.body = {
+                code: 0,
+                msg: "没有找到当前城市"
+            }
+        }
+
+        let recomendRes = await ctx.state.$mysql.execute(`select id,name,img_url,address_desc,avgPrice,avgScore,commentNum from mt_shop where city_id = ${cityRes[0][0].id} order by avgScore desc limit 15`)
+
+        return ctx.body = {
+            categoryTree,
+            recomend: recomendRes[0]
+        }
+    } catch (e) {
+        console.log("err", e)
+        return ctx.body = {
+            code: 0
+        }
+    }
+})
+
 module.exports = product_router
 

@@ -32,6 +32,12 @@ export default {
     homestay,
     recomend,
     navigation
+  },
+  async fetch({ store, params }) {
+    let cityname = store.state.geo.position.city.replace("市", "")
+    let { data } = await store.$axios.post("/product/home", { cityname })
+    store.commit('home/setCategory', data.categoryTree)
+    store.commit('home/setRecomend', data.recomend)
   }
 }
 </script>
@@ -58,55 +64,6 @@ export default {
         margin-left: 10px;
         margin-top: 10px;
         position: relative;
-      }
-    }
-  }
-
-  .index-nav-container {
-    width: 100%;
-    height: 44px;
-    line-height: 44px;
-    box-sizing: border-box;
-    font-size: 14px;
-    color: #fff;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-
-    .title {
-      font-size: 18px;
-      margin-left: 13px;
-      margin-right: 10px;
-    }
-
-    .nav-item {
-      float: left;
-      padding: 0 5px;
-      position: relative;
-      cursor: pointer;
-      text-transform: uppercase;
-
-      &.active:after {
-        position: absolute;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-bottom: 7px solid #fff;
-        content: " ";
-        display: block;
-        width: 2px;
-        height: 0;
-        top: 37px;
-        left: 0;
-        right: 0;
-        margin: auto;
-      }
-    }
-
-    .total {
-      float: right;
-      margin-right: 12px;
-
-      a {
-        color: #fff;
       }
     }
   }
