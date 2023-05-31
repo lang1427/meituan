@@ -9,7 +9,7 @@ const key = crypto.randomBytes(32)  // 加密key
 const iv = crypto.randomBytes(16)  // 加密偏移量
 
 const JWT = require("jsonwebtoken")
-const tokenTime = 1000 * 60 * 20;// token时效 20分钟
+const tokenTime = 60 * 20;// token时效 20分钟
 const SecretKey = fs.readFileSync(path.join(__dirname, "./rsa_private_key.pem"), 'utf-8')
 
 
@@ -56,8 +56,8 @@ module.exports = {
         return decrypted.toString()
     },
     setToken: (data) => {
-        return JWT.sign({ user: data.user }, SecretKey, {
-            expiresIn: tokenTime
+        return JWT.sign({ user: data }, SecretKey, {
+            expiresIn: tokenTime // 默认以秒为单位
         });
     },
     checkToken: (data) => {

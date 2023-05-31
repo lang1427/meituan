@@ -8,7 +8,7 @@ const Redis = require("ioredis")
 const redis = new Redis()
 
 const { isEmail } = require('methods-util/dist/node/methods_util.cjs')
-const { aesEncode, aesDecode, SmtpServer, setToken } = require('../util')
+const { aesEncode, aesDecode, SmtpServer, setToken, checkToken } = require('../util')
 
 user_router.post('/signup', async ctx => {
     let { email, password, readlic } = ctx.request.body
@@ -124,6 +124,27 @@ user_router.post('/signin', async ctx => {
 
 user_router.post('/signout', async ctx => {
 
+})
+
+user_router.get('/getUser', async ctx => {
+    if (!ctx.req.user) {
+        return ctx.body = {
+            code: -1,
+            msg: "未登录"
+        }
+    }
+    let { user } = ctx.req.user
+    if (!user) {
+        return ctx.body = {
+            code: -1,
+            msg: "未登录"
+        }
+    }
+    let userRes = await ctx.state.$mysql.execute(`select id,username,avatar from mt_users where id=${user.id}`)
+    return ctx.body = {
+        code: 1,
+        data: userRes[0][0]
+    }
 })
 
 module.exports = user_router

@@ -31,8 +31,8 @@ app.use(async (ctx, next) => {
 /** 配置redis */
 app.keys = ['mt', parseInt(Math.random() * 1e6).toString()];
 app.use(session({
-  key:'mt',
-  prefix:'mt:uid',
+  key: 'mt',
+  prefix: 'mt:uid',
   store: redisStore({
     host: CONF.Redis.host,
     port: CONF.Redis.port
@@ -41,13 +41,13 @@ app.use(session({
 
 app.use(async (ctx, next) => {
   // 拿取token 数据 按照自己传递方式写
-  var token = ctx.req.headers['auth-access-token'];
+  var token = ctx.req.headers.authorization;
   // 检查token是否有效（过期和非法）
   var user = checkToken({ token });
   if (user) {
     //将当前用户的信息挂在req对象上，方便后面的路由方法使用
     ctx.req.user = user;
-    setToken({ user });         // 续期
+    setToken(user);         // 续期
     await next(); //继续下一步路由
   } else {
     //需要登录态域名白名单

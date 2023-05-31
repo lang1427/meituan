@@ -25,29 +25,29 @@
             <div class="item banner-logincard">
                 <div style="float:left">
                     <div class="login-container">
-                        <div class="default" style="display: none;">
+                        <div class="default" v-if="!$store.state.user.userInfo.hasOwnProperty('id')">
                             <div class="head-img-row"><img src="~/assets/images/lazyload_avatar.png" alt="">
                             </div>
                             <p class="user-name">Hi！你好</p>
-                            <nuxt-link class="btn-login mt-bg" to="user/login">立即登录</nuxt-link>
-                            <nuxt-link class="btn-login" to="user/register">注册</nuxt-link>
+                            <nuxt-link class="btn-login mt-bg" to="/user/login">立即登录</nuxt-link>
+                            <nuxt-link class="btn-login" to="/user/register">注册</nuxt-link>
                         </div>
-                        <div class="default" style="display: block;">
-                            <div class="setting"><a href="https://www.meituan.com/account/settings" target="_blank">
+                        <div class="default" v-else>
+                            <div class="setting"><nuxt-link to="/user/settings" target="_blank">
                                     <div class="icon"><i class="iconfont el-icon-setting"></i></div>
-                                </a></div>
-                            <div class="head-img-row"><a href="https://www.meituan.com/account/userinfo/"
-                                    target="_blank"><img src="~/assets/images/lazyload_avatar.png" alt=""></a>
+                                </nuxt-link></div>
+                            <div class="head-img-row"><nuxt-link to="/user/info" target="_blank"><img
+                                        :src="$store.state.user.userInfo.avatar" alt=""></nuxt-link>
                             </div>
-                            <div class="nickname-row"><a href="https://www.meituan.com/account/userinfo/" target="_blank">
-                                    <p class="user-name">NFO795638310</p>
-                                </a><a href="https://www.meituan.com/account/userinfo/" target="_blank"><i
-                                        class=" iconfont iconfont_level icon-lable_level_0"></i></a></div>
+                            <div class="nickname-row"><nuxt-link to="/user/info" target="_blank">
+                                    <p class="user-name">{{ $store.state.user.userInfo.username }}</p>
+                                </nuxt-link><nuxt-link to="/user/info" target="_blank"><i
+                                        class=" iconfont iconfont_level icon-lable_level_0"></i></nuxt-link></div>
                             <div class="fn-row clearfix">
-                                <div class="fn-item"><a href="https://www.meituan.com/orders/ " target="_blank">
+                                <div class="fn-item"><nuxt-link to="/user/order" target="_blank">
                                         <div class="icon"><i class="iconfont el-icon-s-order"></i></div>
                                         <p class="fn-name">我的订单</p>
-                                    </a></div>
+                                    </nuxt-link></div>
                                 <div class="fn-item"><a href="https://www.meituan.com/collections/" target="_blank">
                                         <div class="icon"><i class="iconfont el-icon-star-on"></i></div>
                                         <p class="fn-name">我的收藏</p>
@@ -62,10 +62,10 @@
                                         <div class="icon"><i class="iconfont el-icon-money"></i></div>
                                         <p class="fn-name">余额</p>
                                     </a></div>
-                                <div class="fn-item"><a href="https://www.meituan.com/account/userinfo/" target="_blank">
+                                <div class="fn-item"><nuxt-link to="/user/info" target="_blank">
                                         <div class="icon"><i class="iconfont el-icon-more"></i></div>
                                         <p class="fn-name">更多</p>
-                                    </a></div>
+                                    </nuxt-link></div>
                             </div>
                         </div>
                     </div>
