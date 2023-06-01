@@ -7,33 +7,34 @@
                     <div class="my-page">
                         <div class="user-info-box">
                             <div class="user-info">
-                                <div class="head-img"><a href="https://www.meituan.com/account/settings"
-                                        target="_blank"><img src="~/assets/images/lazyload_avatar.png" alt=""></a>
+                                <div class="head-img"><nuxt-link to="/user/settings" target="_blank"><img
+                                            :src="$store.state.user.userInfo.avatar" alt=""></nuxt-link>
                                 </div>
                                 <div class="nick-name">
-                                    <a href="https://www.meituan.com/account/settings" target="_blank">
-                                        <p class="nick-name-txt">NFO795638310<i
+                                    <nuxt-link to="/user/settings" target="_blank">
+                                        <p class="nick-name-txt">{{ $store.state.user.userInfo.username }}<i
                                                 class=" levelIconNew iconfont_level icon-new-level_1"></i></p>
-                                    </a>
+                                    </nuxt-link>
                                     <p class="user-money">我的余额：￥0 · <a
                                             href="https://npay.meituan.com/resource/cashier/recharge-card.html"
                                             target="_blank">充值卡充值</a></p>
                                 </div>
-                                <a href="https://www.meituan.com/account/settings" target="_blank"
-                                    class="user-setting">个人信息设置 &gt;</a>
+                                <nuxt-link to="/user/settings" target="_blank" class="user-setting">个人信息设置 &gt;</nuxt-link>
                             </div>
                             <div class="userfn-ls">
                                 <ul class="userfn-ul clearfix">
-                                    <li><a href="/orders#status=0"><i
-                                                class="icon-userinfo el-icon-s-order"></i><span>全部订单</span></a></li>
-                                    <li><a href="/orders#status=1"><i
-                                                class="icon-userinfo el-icon-s-finance"></i><span>待付款</span></a></li>
-                                    <li><a href="/orders#status=2"><i
-                                                class="icon-userinfo el-icon-s-ticket"></i><span>待使用</span></a></li>
-                                    <li><a href="/orders#status=3"><i
-                                                class="icon-userinfo el-icon-s-comment"></i><span>待评论</span></a></li>
-                                    <li><a href="/orders#status=4"><i
-                                                class="icon-userinfo el-icon-money"></i><span>退款/售后</span></a></li>
+                                    <li><nuxt-link to="/user/order#status=0"><i
+                                                class="icon-userinfo el-icon-s-order"></i><span>全部订单</span></nuxt-link></li>
+                                    <li><nuxt-link to="/user/order#status=1"><i
+                                                class="icon-userinfo el-icon-s-finance"></i><span>待付款</span></nuxt-link>
+                                    </li>
+                                    <li><nuxt-link to="/user/order#status=2"><i
+                                                class="icon-userinfo el-icon-s-ticket"></i><span>待使用</span></nuxt-link></li>
+                                    <li><nuxt-link to="/user/order#status=3"><i
+                                                class="icon-userinfo el-icon-s-comment"></i><span>待评论</span></nuxt-link>
+                                    </li>
+                                    <li><nuxt-link to="/user/order#status=4"><i
+                                                class="icon-userinfo el-icon-money"></i><span>退款/售后</span></nuxt-link></li>
                                 </ul>
                             </div>
                         </div>
@@ -51,6 +52,7 @@
 <script>
 import user_menu from "~/components/user_menu.vue";
 export default {
+    middleware: 'authenticated',
     components: {
         user_menu
     }
@@ -150,95 +152,94 @@ export default {
         }
 
     }
+
     .userfn-ls {
-            width: 100%;
-            height: 110px;
-            background: #fff;
-            border-bottom-right-radius: 4px;
-            border-bottom-left-radius: 4px;
+        width: 100%;
+        height: 110px;
+        background: #fff;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
 
-            .userfn-ul {
+        .userfn-ul {
+            position: relative;
+            top: 36px;
+            width: 850px;
+            margin-left: 80px;
+
+            li {
+                float: left;
+                width: 170px;
                 position: relative;
-                top: 36px;
-                width: 850px;
-                margin-left: 80px;
 
-                li {
-                    float: left;
-                    width: 170px;
-                    position: relative;
+                a {
+                    font-size: 14px;
+                    color: #666666;
 
-                    a {
-                        font-size: 14px;
-                        color: #666666;
+                    .icon-userinfo {
+                        font-size: 32px;
+                    }
 
-                        .icon-userinfo {
-                            font-size: 32px;
-                        }
+                    .el-icon-s-order {
+                        background: linear-gradient(to bottom right, #FFA24B, #FD7F3A);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
 
-                        .el-icon-s-order {
-                            background: linear-gradient(to bottom right, #FFA24B, #FD7F3A);
-                            -webkit-background-clip: text;
-                            background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                        }
+                    .el-icon-s-finance {
+                        background: linear-gradient(to bottom right, #FFA24B, #FD7F3A);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
 
-                        .el-icon-s-finance {
-                            background: linear-gradient(to bottom right, #FFA24B, #FD7F3A);
-                            -webkit-background-clip: text;
-                            background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                        }
+                    .el-icon-s-ticket {
+                        background: linear-gradient(to bottom right, #FFA24B, #FD7F3A);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
 
-                        .el-icon-s-ticket {
-                            background: linear-gradient(to bottom right, #FFA24B, #FD7F3A);
-                            -webkit-background-clip: text;
-                            background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                        }
+                    .el-icon-s-comment {
+                        background: linear-gradient(to bottom right, #FFA24B, #FD7F3A);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
 
-                        .el-icon-s-comment {
-                            background: linear-gradient(to bottom right, #FFA24B, #FD7F3A);
-                            -webkit-background-clip: text;
-                            background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                        }
+                    .el-icon-money {
+                        background: linear-gradient(to bottom right, #FFA24B, #FD7F3A);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        font-size: 36px;
+                    }
 
-                        .el-icon-money {
-                            background: linear-gradient(to bottom right, #FFA24B, #FD7F3A);
-                            -webkit-background-clip: text;
-                            background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                            font-size: 36px;
-                        }
+                    .num-refund {
+                        top: -9px !important;
+                        left: 22px !important;
+                    }
 
-                        .num-refund {
-                            top: -9px !important;
-                            left: 22px !important;
-                        }
+                    span {
+                        line-height: 36px;
+                        text-align: center;
+                        display: inline-block;
+                        position: relative;
+                        top: -6px;
+                        left: 16px;
+                    }
 
-                        span {
-                            line-height: 36px;
-                            text-align: center;
-                            display: inline-block;
-                            position: relative;
-                            top: -6px;
-                            left: 16px;
-                        }
-
-                        .num {
-                            background: #FF4A4A;
-                            border: 2px solid #FFFFFF;
-                            border-radius: 42px;
-                            font-size: 12px;
-                            color: #FFFFFF;
-                            line-height: 12px;
-                            position: absolute;
-                            top: -12px;
-                            left: 25px;
-                            padding: 2px 6px;
-                        }
-
+                    .num {
+                        background: #FF4A4A;
+                        border: 2px solid #FFFFFF;
+                        border-radius: 42px;
+                        font-size: 12px;
+                        color: #FFFFFF;
+                        line-height: 12px;
+                        position: absolute;
+                        top: -12px;
+                        left: 25px;
+                        padding: 2px 6px;
                     }
 
                 }
@@ -246,6 +247,8 @@ export default {
             }
 
         }
+
+    }
 }
 
 .recommend-list {
@@ -333,4 +336,5 @@ export default {
 
     }
 
-}</style>
+}
+</style>

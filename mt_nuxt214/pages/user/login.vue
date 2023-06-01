@@ -90,6 +90,7 @@ export default {
               if (res.data.code === 1) {
                 this.$cookies.set('token', res.data.token)
                 this.$store.dispatch('user/setToken', res.data.token)
+                this.$store.dispatch('user/setUserInfo', res.data.user)
                 this.$router.push('/user/info')
               } else {
                 this.$message({ type: "error", message: res.data.msg })

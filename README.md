@@ -98,6 +98,8 @@ _SSR 中 mounted 生命周期函数不会被执行即查看源码不会有新内
 
 #### vuex 数据交换 使用`fetch()` 方法
 
+#### 首屏渲染数据(新开窗口与刷新)会调用`nuxtServerInit`方法，但是this.$router.push()跳转路由时是不会调用此方法的！
+
 </details>
 
 ### 前期准备

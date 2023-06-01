@@ -98,7 +98,7 @@ user_router.post('/signin', async ctx => {
     }
 
     try {
-        let [rows] = await ctx.state.$mysql.query(`select id,email,password,active from mt_users where email=? and password=?`, [email, password])
+        let [rows] = await ctx.state.$mysql.query(`select id,email,password,active,username,avatar from mt_users where email=? and password=?`, [email, password])
         if (rows.length === 0) {
             return ctx.body = {
                 code: 0,
@@ -115,7 +115,8 @@ user_router.post('/signin', async ctx => {
         let token = setToken(Object.assign({ user }, { time: Date.now() }))
         return ctx.body = {
             code: 1,
-            token
+            token,
+            user: { id: user.id, username: user.username, avatar: user.avatar }
         }
     } catch (err) {
         console.log(err)

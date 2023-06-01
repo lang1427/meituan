@@ -41,7 +41,7 @@ CREATE TABLE mt_users(
   `email` VARCHAR(100) NOT NULL UNIQUE,
   `password` VARCHAR(32) NOT NULL,
   `iphone` VARCHAR(11) UNIQUE,
-  `avatar` VARCHAR(200), 
+  `avatar` VARCHAR(200) DEFAULT "_nuxt/assets/images/lazyload_avatar.png", 
   `birthday` DATE,
   `active` TINYINT NOT NULL DEFAULT 0,
   `create_time` INT(11) NOT NULL,

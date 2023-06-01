@@ -2,14 +2,14 @@
     <div style="float:left">
         <div class="orders-link-box">
             <div class="link-group">
-                <p class="title"><a href="https://www.meituan.com/account/userinfo/">我的美团</a></p>
-                <p class="title"><a href="/orders/#status=0">我的订单</a></p>
+                <p class="title"><nuxt-link to="/user/info">我的美团</nuxt-link></p>
+                <p class="title"><nuxt-link to="/user/order#status=0">我的订单</nuxt-link></p>
                 <ul class="link-ul">
-                    <li><a href="/orders/#status=0">全部订单</a><i class="icon-right"></i></li>
-                    <li><a href="/orders/#status=1">待付款</a><i class="icon-right"></i></li>
-                    <li><a href="/orders/#status=2">待使用</a><i class="icon-right"></i></li>
-                    <li><a href="/orders/#status=3">待评价</a><i class="icon-right"></i></li>
-                    <li><a href="/orders/#status=4">退款/售后</a><i class="icon-right"></i></li>
+                    <li><nuxt-link to="/user/order#status=0">全部订单</nuxt-link><i class="icon-right"></i></li>
+                    <li><nuxt-link to="/user/order#status=1">待付款</nuxt-link><i class="icon-right"></i></li>
+                    <li><nuxt-link to="/user/order#status=2">待使用</nuxt-link><i class="icon-right"></i></li>
+                    <li><nuxt-link to="/user/order#status=3">待评价</nuxt-link><i class="icon-right"></i></li>
+                    <li><nuxt-link to="/user/order#status=4">退款/售后</nuxt-link><i class="icon-right"></i></li>
                 </ul>
             </div>
             <div class="link-group">
@@ -31,9 +31,9 @@
                 </ul>
             </div>
             <div class="link-group">
-                <p class="title"><a href="https://www.meituan.com/account/settings">个人信息</a></p>
+                <p class="title"><nuxt-link to="/user/settings">个人信息</nuxt-link></p>
                 <ul class="link-ul">
-                    <li><a href="https://www.meituan.com/account/settings">账户设置</a><span class="num"></span><i
+                    <li><nuxt-link to="/user/settings">账户设置</nuxt-link><span class="num"></span><i
                             class="icon-right"></i></li>
                 </ul>
             </div>
