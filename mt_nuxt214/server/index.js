@@ -43,11 +43,10 @@ app.use(async (ctx, next) => {
   // 拿取token 数据 按照自己传递方式写
   var token = ctx.req.headers.authorization;
   // 检查token是否有效（过期和非法）
-  var user = checkToken({ token });
-  if (user) {
+  var auth = token ? checkToken(token) : null;
+  if (auth) {
     //将当前用户的信息挂在req对象上，方便后面的路由方法使用
-    ctx.req.user = user;
-    setToken(user);         // 续期
+    ctx.req.auth = auth;
     await next(); //继续下一步路由
   } else {
     //需要登录态域名白名单
@@ -64,10 +63,12 @@ app.use(bodyParser())
 const geo_router = require("./api/geo")
 const user_router = require("./api/user")
 const product_router = require('./api/product')
+const upload_router = require('./api/upload')
 
 app.use(geo_router.routes()).use(geo_router.allowedMethods())
 app.use(user_router.routes()).use(user_router.allowedMethods())
 app.use(product_router.routes()).use(product_router.allowedMethods())
+app.use(upload_router.routes()).use(upload_router.allowedMethods())
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')

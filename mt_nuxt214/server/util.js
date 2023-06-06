@@ -56,25 +56,22 @@ module.exports = {
         return decrypted.toString()
     },
     setToken: (data) => {
-        return JWT.sign({ user: data }, SecretKey, {
+        return JWT.sign(data, SecretKey, {
             expiresIn: tokenTime // 默认以秒为单位
         });
     },
-    checkToken: (data) => {
+    checkToken: (token) => {
         var user = null;
         try {
             //如果根据token查到了用户信息，表示校验通过
-            var decoded = JWT.verify(data.token, SecretKey);
-            user = decoded.user;
+            var decoded = JWT.verify(token, SecretKey);
+            delete decoded.iat
+            delete decoded.exp
+            user = decoded;
         } catch (e) {
-
+            console.log("解析token失败", e)
         }
         return user
-    },
-    delToken: (data) => {
-        JWT.sign({ user: data.user }, SecretKey, {
-            expiresIn: 0
-        });
     },
     getPosiRange: (longitude, latitude, distince) => {
         /**

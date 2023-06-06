@@ -40,8 +40,12 @@
          pwd:"" // 发件人授权码
       },
       aMapWebApiKEY:"",    // 高德地图Web服务key
-      tokenApi:[]
-
+      tokenApi:["/upload/change/avatar"]
+      fdfsServer: {
+         host: "",
+         port: ,
+         accessAddress:""
+      }
    }
    ```
 
