@@ -10,14 +10,13 @@
                     </div>
                     <div class="item clearfix">
                         <div class="field-name"><span>头像</span></div>
-                        <div class="field-value"><img src="~/assets/images/lazyload_avatar.png" alt="" class="head-img">
+                        <div class="field-value"><img :src="$store.state.user.userInfo.avatar" alt="" class="head-img">
                         </div>
                         <div class="upload-container">
                             <div class="btn-upload">
                                 <button class="btn-change" @click="fadeToogle('show_avatar', true)">修改</button>
-                                <input type="file" accept="image/*" name="" class="ipt-file">
                                 <div :class="['dialog-container', show_avatar ? 'fadeIn' : 'fadeOut']">
-                                    <div class="dialog-box">
+                                    <div class="dialog-box w630">
                                         <div class="dialog-head clearfix">
                                             <p class="dialog-name">裁剪图片</p>
                                             <p class="dialog-close" @click="fadeToogle('show_avatar', false)"><img
@@ -25,39 +24,13 @@
                                         </div>
                                         <div class="dialog-body">
                                             <div class="clip-board-container clearfix">
-                                                <div class="clip-board" style="width:300px;height:300px">
-                                                    <div class="clip-content">
-                                                        <div class="complete">
-                                                            <div class="board-bg"></div>
-                                                            <div></div>
-                                                        </div>
-                                                        <div class="resize-content">
-                                                            <div class="resize-box"
-                                                                style="background-image:url();background-position-x:0px;background-position-y:0px;background-size:100px;top:0px;left:0px;width:100px;height:100px">
-                                                                <div class="handles">
-                                                                    <div data-id="hl-n" class="handle-line hl-n"></div>
-                                                                    <div data-id="hl-s" class="handle-line hl-s"></div>
-                                                                    <div data-id="hl-e" class="handle-line hl-e"></div>
-                                                                    <div data-id="hl-w" class="handle-line hl-w"></div>
-                                                                    <div data-id="h-n" class="handle h-n"></div>
-                                                                    <div data-id="h-s" class="handle h-s"></div>
-                                                                    <div data-id="h-e" class="handle h-e"></div>
-                                                                    <div data-id="h-w" class="handle h-w"></div>
-                                                                    <div data-id="h-nw" class="handle h-nw"></div>
-                                                                    <div data-id="h-ne" class="handle h-ne"></div>
-                                                                    <div data-id="h-se" class="handle h-se"></div>
-                                                                    <div data-id="h-sw" class="handle h-sw"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div><canvas class="clip-end-preview"></canvas>
-                                                </div>
-                                                <canvas class="clipped-img"></canvas>
+                                                <cropper ref="cropperBox" @uploadSuccess="uploadSuccess"></cropper>
                                             </div>
                                         </div>
                                         <div class="btn-group">
-                                            <button class="btn btn-ok">确认修改</button>
-                                            <button class="btn btn-cancel">取消</button>
+                                            <button class="btn btn-ok" @click="changeAvatar">确认修改</button>
+                                            <button class="btn btn-cancel"
+                                                @click="fadeToogle('show_avatar', false)">取消</button>
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +39,7 @@
                     </div>
                     <div class="item clearfix">
                         <div class="field-name"><span>昵称</span></div>
-                        <div class="field-value"><span class="value">NFO795638310</span></div>
+                        <div class="field-value"><span class="value">{{ $store.state.user.userInfo.username }}</span></div>
                         <button class="btn-change change-nickname" @click="fadeToogle('show_nikename', true)">修改</button>
                     </div>
                     <div class="item clearfix">
@@ -100,8 +73,8 @@
                                         class="field-value">NFO795638310</span></div>
                                 <div class="row"><label class="field-name">新昵称</label>
                                     <div
-                                        :class="['field-input', nikename_status == 0 ? 'input-normal' : nikename_status == 1 ? 'input-error' : 'input-success']">
-                                        <input type="text" v-model="new_nikename" @input="validateName()">
+                                        :class=" ['field-input', nikename_status == 0 ? 'input-normal' : nikename_status == 1 ? 'input-error' : 'input-success'] ">
+                                        <input type="text" v-model=" new_nikename " @input=" validateName() ">
                                         <img src="~/assets/images/icon/fail.png" class="icon icon-fail" alt="">
                                         <img src="~/assets/images/icon/success.png" class="icon icon-success" alt="">
                                         <p class="error-msg">{{ err_msg }}</p>
@@ -110,24 +83,25 @@
                                 </div>
                             </div>
                             <div class="btn-group">
-                                <button :class="['btn', 'btn-ok', nikename_status == 2 ? '' : 'btn-disabled']">确认修改</button>
+                                <button
+                                    :class=" ['btn', 'btn-ok', nikename_status == 2 ? '' : 'btn-disabled'] ">确认修改</button>
                                 <button class="btn btn-cancel"
-                                    @click="resetVal(); fadeToogle('show_nikename', false)">取消</button>
+                                    @click=" resetVal(); fadeToogle('show_nikename', false) ">取消</button>
                             </div>
                         </div>
                     </div>
-                    <div :class="['dialog-container', show_birthday ? 'fadeIn' : 'fadeOut']">
+                    <div :class=" ['dialog-container', show_birthday ? 'fadeIn' : 'fadeOut'] ">
                         <div class="dialog-box">
                             <div class="dialog-head clearfix">
                                 <p class="dialog-name">修改生日</p>
-                                <p class="dialog-close" @click="fadeToogle('show_birthday', false)"><img
+                                <p class="dialog-close" @click=" fadeToogle('show_birthday', false) "><img
                                         src="~/assets/images/icon/close.png" alt=""></p>
                             </div>
                             <div class="dialog-body">
                                 <div class="row">
                                     <label class="field-name" style="width:30%;transform:translateY(-3px)">生日</label>
-                                    <el-date-picker format="yyyy 年 MM 月 dd 日" v-model="birthday" type="date" :picker-options="pickerOptions"
-                                        placeholder="选择日期"></el-date-picker>
+                                    <el-date-picker format="yyyy 年 MM 月 dd 日" v-model=" birthday " type="date"
+                                        :picker-options=" pickerOptions " placeholder="选择日期"></el-date-picker>
                                 </div>
                             </div>
                             <div class="btn-group">
@@ -136,18 +110,18 @@
                             </div>
                         </div>
                     </div>
-                    <div :class="['dialog-container', show_pwd ? 'fadeIn' : 'fadeOut']">
+                    <div :class=" ['dialog-container', show_pwd ? 'fadeIn' : 'fadeOut'] ">
                         <div class="dialog-box">
                             <div class="dialog-head clearfix">
                                 <p class="dialog-name">设置密码</p>
-                                <p class="dialog-close" @click="resetPwdBox(); fadeToogle('show_pwd', false)"><img
+                                <p class="dialog-close" @click=" resetPwdBox(); fadeToogle('show_pwd', false) "><img
                                         src="~/assets/images/icon/close.png" alt=""></p>
                             </div>
                             <div class="dialog-body">
                                 <div class="row"><label class="field-name">当前密码</label>
                                     <div
-                                        :class="['field-input', cur_pwd_status.status == 0 ? 'input-normal' : cur_pwd_status.status == 1 ? 'input-error' : 'input-success']">
-                                        <input type="password" v-model="pwd_validate.cur_pwd">
+                                        :class=" ['field-input', cur_pwd_status.status == 0 ? 'input-normal' : cur_pwd_status.status == 1 ? 'input-error' : 'input-success'] ">
+                                        <input type="password" v-model=" pwd_validate.cur_pwd ">
                                         <img src="~/assets/images/icon/fail.png" class="icon icon-fail" alt=""><img
                                             src="~/assets/images/icon/success.png" class="icon icon-success" alt="">
                                         <p class="error-msg">{{ cur_pwd_status.val }}</p>
@@ -155,8 +129,8 @@
                                 </div>
                                 <div class="row clearfix"><label class="field-name">密码</label>
                                     <div
-                                        :class="['field-input', new_pwd_status.status == 0 ? 'input-normal' : new_pwd_status.status == 1 ? 'input-error' : 'input-success']">
-                                        <input type="password" v-model="pwd_validate.new_pwd">
+                                        :class=" ['field-input', new_pwd_status.status == 0 ? 'input-normal' : new_pwd_status.status == 1 ? 'input-error' : 'input-success'] ">
+                                        <input type="password" v-model=" pwd_validate.new_pwd ">
                                         <img src="~/assets/images/icon/fail.png" class="icon icon-fail" alt=""><img
                                             src="~/assets/images/icon/success.png" class="icon icon-success" alt="">
                                     </div>
@@ -165,15 +139,15 @@
                                         <div class="level ">中</div>
                                         <div class="level ">强</div>
                                     </div>
-                                    <div :class="['field-input', new_pwd_status.status == 0 ? 'input-normal' : new_pwd_status.status == 1 ? 'input-error' : 'input-success']"
+                                    <div :class=" ['field-input', new_pwd_status.status == 0 ? 'input-normal' : new_pwd_status.status == 1 ? 'input-error' : 'input-success'] "
                                         style="float:right;margin-right:106px">
                                         <p class="error-msg">{{ new_pwd_status.val }}</p>
                                     </div>
                                 </div>
                                 <div class="row"><label class="field-name">确认密码</label>
                                     <div
-                                        :class="['field-input', confirm_pwd_status.status == 0 ? 'input-normal' : confirm_pwd_status.status == 1 ? 'input-error' : 'input-success']">
-                                        <input type="password" v-model="pwd_validate.confirm_pwd">
+                                        :class=" ['field-input', confirm_pwd_status.status == 0 ? 'input-normal' : confirm_pwd_status.status == 1 ? 'input-error' : 'input-success'] ">
+                                        <input type="password" v-model=" pwd_validate.confirm_pwd ">
                                         <img src="~/assets/images/icon/fail.png" class="icon icon-fail" alt=""><img
                                             src="~/assets/images/icon/success.png" class="icon icon-success" alt="">
                                         <p class="error-msg">{{ confirm_pwd_status.val }}</p>
@@ -182,9 +156,9 @@
                             </div>
                             <div class="btn-group">
                                 <button
-                                    :class="['btn', 'btn-ok', (cur_pwd_status.status == 2 && new_pwd_status.status == 2 && confirm_pwd_status.status == 2) ? '' : 'btn-disabled']">确认修改</button>
+                                    :class=" ['btn', 'btn-ok', (cur_pwd_status.status == 2 && new_pwd_status.status == 2 && confirm_pwd_status.status == 2) ? '' : 'btn-disabled'] ">确认修改</button>
                                 <button class="btn btn-cancel"
-                                    @click="resetPwdBox(); fadeToogle('show_pwd', false)">取消</button>
+                                    @click=" resetPwdBox(); fadeToogle('show_pwd', false) ">取消</button>
                             </div>
                         </div>
                     </div>
@@ -195,10 +169,13 @@
 </template>
 <script>
 import user_menu from "~/components/user_menu.vue"
+import cropper from '~/components/cropper.vue'
 import { checkPwd } from "methods-util"
 export default {
+    middleware: 'authenticated',
     components: {
-        user_menu
+        user_menu,
+        cropper
     },
     data() {
         return {
@@ -215,10 +192,15 @@ export default {
                 new_pwd: null,
                 confirm_pwd: null
             },
-            pickerOptions:{
-                disabledDate(time){
-                    return time.getTime() > Date.now() 
+            pickerOptions: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now()
                 }
+            },
+            option: {
+                img: "http://47.93.187.37:8000/img/biztone/963220861_1678248182051.jpeg@380w_214h_1e_1c",
+                size: 1,
+                outputType: "webp"
             }
         }
     },
@@ -319,6 +301,13 @@ export default {
                     this.nikename_status = 2
                 }
             })
+        },
+        changeAvatar() {
+            this.$refs.cropperBox.Upload()
+        },
+        uploadSuccess() {
+            this.$message({ type: "success", message: "头像修改成功" })
+            this.fadeToogle('show_avatar', false)
         }
     }
 }
@@ -418,8 +407,6 @@ export default {
                     float: right;
                     line-height: 40px;
                 }
-
-
             }
 
         }
@@ -440,6 +427,10 @@ export default {
                 margin: 0 auto;
                 position: relative;
                 top: 18%;
+
+                &.w630 {
+                    width: 630px;
+                }
 
                 .dialog-head {
                     width: 100%;
@@ -643,22 +634,6 @@ export default {
         }
 
         .upload-container {
-            .drop-area {
-                height: 150px;
-                width: 400px;
-                border: 1px dashed #666666;
-
-                p {
-                    text-align: center;
-                    line-height: 150px;
-                }
-
-            }
-
-            .ipt-file {
-                visibility: hidden;
-            }
-
             .clip-board {
                 margin: 10px 10px 10px 25px;
                 width: 400px;
@@ -679,165 +654,6 @@ export default {
                     background: #13D1BE;
                     margin-right: 10px;
                 }
-
-                .clip-content {
-                    float: left;
-                }
-
-                .board-bg {
-                    background: #000;
-                    opacity: 0.5;
-                    position: absolute;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                }
-
-                .complete {
-                    max-width: 400px;
-                    max-height: 400px;
-                    position: relative;
-                    overflow: hidden;
-                }
-
-                .preview {
-                    max-width: 400px;
-                    max-height: 400px;
-                }
-
-                .resize-content {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                }
-
-                .resize-box {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    border: 1px dashed #fff;
-                    width: 180px;
-                    height: 180px;
-                    cursor: move;
-                    background-repeat: no-repeat;
-                    background-size: 400px;
-                    background-position: 0 0;
-                }
-
-                .handles {
-                    .handle {
-                        background: rgba(0, 0, 0, 0.6);
-                        border: 1px #eeeeee solid;
-                        width: 6px;
-                        height: 6px;
-                        font-size: 1px;
-                        position: absolute;
-                    }
-
-                    .handle-line {
-                        position: absolute;
-                    }
-
-                    .hl-n {
-                        cursor: n-resize;
-                        width: 100%;
-                        height: 6px;
-                        top: 0;
-                    }
-
-                    .hl-s {
-                        width: 100%;
-                        height: 6px;
-                        bottom: 0;
-                        cursor: s-resize;
-                    }
-
-                    .hl-e {
-                        height: 100%;
-                        width: 6px;
-                        right: 0;
-                        cursor: e-resize;
-                    }
-
-                    .hl-w {
-                        height: 100%;
-                        width: 6px;
-                        left: 0;
-                        cursor: w-resize;
-                    }
-
-                    .h-n {
-                        top: -4px;
-                        left: 50%;
-                        margin-left: -1.5px;
-                        cursor: n-resize;
-                    }
-
-                    .h-s {
-                        bottom: -4px;
-                        left: 50%;
-                        margin-left: -1.5px;
-                        cursor: s-resize;
-                    }
-
-                    .h-e {
-                        top: 50%;
-                        right: -4px;
-                        margin-top: -1.5px;
-                        cursor: e-resize;
-                    }
-
-                    .h-w {
-                        top: 50%;
-                        left: -4px;
-                        margin-top: -1.5px;
-                        cursor: w-resize;
-                    }
-
-                    .h-nw {
-                        top: -4px;
-                        left: -4px;
-                        cursor: nw-resize;
-                    }
-
-                    .h-ne {
-                        top: -4px;
-                        right: -4px;
-                        cursor: ne-resize;
-                    }
-
-                    .h-se {
-                        bottom: -4px;
-                        right: -4px;
-                        cursor: se-resize;
-                    }
-
-                    .h-sw {
-                        bottom: -4px;
-                        left: -4px;
-                        cursor: sw-resize;
-                    }
-
-                }
-
-                .clip-end-preview {
-                    float: left;
-                    display: none;
-                }
-
-            }
-
-            .clipped-img {
-                width: 100px;
-                height: 100px;
-                float: right;
-                margin: 10px;
-                margin-right: 25px;
-            }
-
-            .pre-img {
-                width: 100px;
-                height: 100px;
             }
         }
     }

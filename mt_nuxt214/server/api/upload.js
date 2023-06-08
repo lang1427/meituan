@@ -24,6 +24,13 @@ const upload = multer()
 
 upload_router.post('/change/avatar', upload.single('avatar'), async ctx => {
 
+    if (!ctx.file) {
+        return ctx.body = {
+            code: -1,
+            msg: "没有接收到文件"
+        }
+    }
+
     if (!ctx.file.hasOwnProperty('mimetype')) {
         return ctx.body = {
             code: -1,
@@ -45,10 +52,12 @@ upload_router.post('/change/avatar', upload.single('avatar'), async ctx => {
         }
     }
 
-    let  user  = ctx.req.auth
+    let user = ctx.req.auth
 
     try {
-        let fileId = await fdfs.upload(ctx.file.buffer)
+        let fileId = await fdfs.upload(ctx.file.buffer, {
+            ext: ctx.file.mimetype.substring(6)
+        })
         let avatar = fdfsServer.accessAddress + fileId
         let [rows] = await ctx.state.$mysql.execute(`update mt_users set avatar="${avatar}" where id=${user.id}`)
         if (rows.affectedRows === 1) {

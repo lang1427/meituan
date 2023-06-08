@@ -1,7 +1,7 @@
 
 module.exports = {
   mode: 'universal',
-  telemetry:false, // 关闭 Are you interested in participating? (Y/n)
+  telemetry: false, // 关闭 Are you interested in participating? (Y/n)
   /*
   ** Headers of the page
   */
@@ -33,7 +33,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    { src: '@/plugins/vue-cropper', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -58,11 +59,11 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    transpile: [/^element-ui/,/^methods-util/],
+    transpile: [/^element-ui/, /^methods-util/, /^vue-cropper/],
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }
