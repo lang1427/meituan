@@ -93,6 +93,15 @@ module.exports = {
         let minlng = (lng - dlng).toFixed(6);
         let maxlng = (lng + dlng).toFixed(6);
         return { minlng, maxlng, minlat, maxlat };
+    },
+    createSlat: () => {
+        let buf = crypto.randomBytes(8);
+        return buf.toString('hex');
+    },
+    hash256: (pwd) => {
+        var hash = crypto.createHash('sha256');
+        hash.update(pwd);
+        return hash.digest('hex');
     }
 }
 

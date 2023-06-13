@@ -28,7 +28,8 @@
 </template>
    
 <script>
-import { isEmail } from 'methods-util'
+import { isEmail, checkPwd } from 'methods-util'
+import CryptoJS from 'crypto-js'
 import License from '~/components/read_license.vue';
 export default {
     layout: "sign",
@@ -92,7 +93,7 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     if (this.$refs.license.validatorLicense()) {
-                        this.$axios.post('/user/signup', { email: this.ruleForm.email, password: this.ruleForm.pass, readlic: 1 }).then(res => {
+                        this.$axios.post('/user/signup', { email: this.ruleForm.email, password: this.AES_encrypt(), readlic: 1, grade: checkPwd(this.ruleForm.pass) }).then(res => {
                             if (res.data.code === 1) {
                                 this.$message({ type: 'success', message: "注册成功" })
                                 this.$router.push('/user/login')
@@ -107,6 +108,16 @@ export default {
                     return false;
                 }
             });
+        },
+        ENC_parse(word) {
+            return CryptoJS.enc.Utf8.parse(word)
+        },
+        AES_encrypt() {
+            return CryptoJS.AES.encrypt(this.ENC_parse(this.ruleForm.pass), this.ENC_parse(this.$parent.$parent.sign_key), {
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7,
+                iv: this.ENC_parse(this.$parent.$parent.sign_iv)
+            }).toString();
         }
     }
 }

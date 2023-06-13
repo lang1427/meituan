@@ -8,10 +8,10 @@ const Redis = require("ioredis")
 const redis = new Redis()
 
 const { isEmail } = require('methods-util/dist/node/methods_util.cjs')
-const { aesEncode, aesDecode, SmtpServer, setToken } = require('../util')
+const { aesEncode, aesDecode, SmtpServer, setToken, createSlat, hash256 } = require('../util')
 
 user_router.post('/signup', async ctx => {
-    let { email, password, readlic } = ctx.request.body
+    let { email, password, readlic, grade } = ctx.request.body
 
     if (!email || !password || readlic !== 1) {
         return ctx.body = {
@@ -27,9 +27,13 @@ user_router.post('/signup', async ctx => {
 
     let createTime = parseInt(Date.now() / 1000)
     let nickname = `NF` + parseInt(Math.random() * 1e10)
+    // 加盐加密
+    let slat = createSlat()
+    let pwd = hash256(slat + password)
+
     try {
 
-        const [rows] = await ctx.state.$mysql.execute(`INSERT INTO mt_users (username,email,password,create_time) VALUES (?,?,?,?);`, [nickname, email, password, createTime])
+        const [rows] = await ctx.state.$mysql.execute(`INSERT INTO mt_users (username,email,password,slat,grade,create_time) VALUES (?,?,?,?,?,?);`, [nickname, email, pwd, slat, grade, createTime])
         if (rows.affectedRows === 1) {
             let hashid = aesEncode(`${rows.insertId}_${Date.now()}`).encryptedData
             redis.set(hashid, "1", "EX", 86400)
@@ -97,8 +101,18 @@ user_router.post('/signin', async ctx => {
         }
     }
 
+    let slatRes = await ctx.state.$mysql.query(`select slat from mt_users where email="${email}"`)
+    if (slatRes[0].length == 0) {
+        return ctx.body = {
+            code: 0,
+            msg: "未注册该用户"
+        }
+    }
+    let slat = slatRes[0][0].slat
+    let pwd = hash256(slat + password)
+
     try {
-        let [rows] = await ctx.state.$mysql.query(`select id,active,username,avatar from mt_users where email=? and password=?`, [email, password])
+        let [rows] = await ctx.state.$mysql.query(`select id,active,username,avatar from mt_users where email=? and password=?`, [email, pwd])
         if (rows.length === 0) {
             return ctx.body = {
                 code: 0,
@@ -134,7 +148,7 @@ user_router.get('/getUser', async ctx => {
             msg: "未登录"
         }
     }
-    let  user  = ctx.req.auth
+    let user = ctx.req.auth
     if (!user) {
         return ctx.body = {
             code: -1,

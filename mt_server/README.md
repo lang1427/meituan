@@ -38,6 +38,8 @@
 - username 用户昵称
 - email   用户邮箱
 - password  用户密码
+- slat  盐值
+- grade 密码等级 (1 弱 2中 3强) 
 - iphone 用户手机号
 - avatar 用户头像
 - birthday 生日
