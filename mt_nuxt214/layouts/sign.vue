@@ -26,16 +26,6 @@
         </footer>
     </div>
 </template>
-<script>
-export default{
-    data(){
-        return{
-            sign_key:"4567631346997846",
-            sign_iv:"0000000000123456"
-        }
-    }
-}
-</script>
 <style lang="less" scoped>
 .header {
     position: relative;

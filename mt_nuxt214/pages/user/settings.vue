@@ -44,7 +44,8 @@
                     </div>
                     <div class="item clearfix">
                         <div class="field-name"><span>生日</span></div>
-                        <div class="field-value"><span class="value">您还没有设置生日</span></div>
+                        <div class="field-value"><span class="value">{{ $store.state.user.userInfo.birthday || "您还没有设置生日"
+                        }}</span></div>
                         <button class="btn-change change-birthday" @click="fadeToogle('show_birthday', true)">修改</button>
                     </div>
                     <div class="item clearfix">
@@ -55,7 +56,7 @@
                     </div>
                     <div class="item clearfix">
                         <div class="field-name"><span>登录密码</span></div>
-                        <div class="field-value"><span class="value">安全强度：弱</span></div>
+                        <div class="field-value"><span class="value">安全强度：{{ grade }}</span></div>
                         <button class="btn-change change-pwd" @click="fadeToogle('show_pwd', true)">修改</button>
                     </div>
                 </div>
@@ -69,8 +70,8 @@
                                 </p>
                             </div>
                             <div class="dialog-body">
-                                <div class="row"><label class="field-name">当前昵称</label><span
-                                        class="field-value">NFO795638310</span></div>
+                                <div class="row"><label class="field-name">当前昵称</label><span class="field-value">{{
+                                        $store.state.user.userInfo.username }}</span></div>
                                 <div class="row"><label class="field-name">新昵称</label>
                                     <div
                                         :class=" ['field-input', nikename_status == 0 ? 'input-normal' : nikename_status == 1 ? 'input-error' : 'input-success'] ">
@@ -83,8 +84,8 @@
                                 </div>
                             </div>
                             <div class="btn-group">
-                                <button
-                                    :class=" ['btn', 'btn-ok', nikename_status == 2 ? '' : 'btn-disabled'] ">确认修改</button>
+                                <button :class=" ['btn', 'btn-ok', nikename_status == 2 ? '' : 'btn-disabled'] "
+                                    @click=" changeName ">确认修改</button>
                                 <button class="btn btn-cancel"
                                     @click=" resetVal(); fadeToogle('show_nikename', false) ">取消</button>
                             </div>
@@ -100,13 +101,14 @@
                             <div class="dialog-body">
                                 <div class="row">
                                     <label class="field-name" style="width:30%;transform:translateY(-3px)">生日</label>
-                                    <el-date-picker format="yyyy 年 MM 月 dd 日" v-model=" birthday " type="date"
+                                    <el-date-picker value-format="yyyy-MM-dd" v-model=" birthday " type="date"
                                         :picker-options=" pickerOptions " placeholder="选择日期"></el-date-picker>
                                 </div>
                             </div>
                             <div class="btn-group">
-                                <button class="btn btn-ok ">确认修改</button>
-                                <button class="btn btn-cancel">取消</button>
+                                <button :class=" ['btn', 'btn-ok', !birthday ? 'btn-disabled' : ''] "
+                                    @click=" changeBirthday ">确认修改</button>
+                                <button class="btn btn-cancel" @click=" fadeToogle('show_birthday', false) ">取消</button>
                             </div>
                         </div>
                     </div>
@@ -135,9 +137,9 @@
                                             src="~/assets/images/icon/success.png" class="icon icon-success" alt="">
                                     </div>
                                     <div class="pwd-level clearfix">
-                                        <div class="level ">弱</div>
-                                        <div class="level ">中</div>
-                                        <div class="level ">强</div>
+                                        <div :class=" [level == 1 ? 'level level-0' : 'level'] ">弱</div>
+                                        <div :class=" [level == 2 ? 'level level-1' : 'level'] ">中</div>
+                                        <div :class=" [level > 2 ? 'level level-2' : 'level'] ">强</div>
                                     </div>
                                     <div :class=" ['field-input', new_pwd_status.status == 0 ? 'input-normal' : new_pwd_status.status == 1 ? 'input-error' : 'input-success'] "
                                         style="float:right;margin-right:106px">
@@ -156,7 +158,8 @@
                             </div>
                             <div class="btn-group">
                                 <button
-                                    :class=" ['btn', 'btn-ok', (cur_pwd_status.status == 2 && new_pwd_status.status == 2 && confirm_pwd_status.status == 2) ? '' : 'btn-disabled'] ">确认修改</button>
+                                    :class=" ['btn', 'btn-ok', (cur_pwd_status.status == 2 && new_pwd_status.status == 2 && confirm_pwd_status.status == 2) ? '' : 'btn-disabled'] "
+                                    @click=" changePwd ">确认修改</button>
                                 <button class="btn btn-cancel"
                                     @click=" resetPwdBox(); fadeToogle('show_pwd', false) ">取消</button>
                             </div>
@@ -170,6 +173,7 @@
 <script>
 import user_menu from "~/components/user_menu.vue"
 import cropper from '~/components/cropper.vue'
+import signMixin from '~/mixin/sign.js'
 import { checkPwd } from "methods-util"
 export default {
     middleware: 'authenticated',
@@ -179,7 +183,7 @@ export default {
     },
     data() {
         return {
-            birthday: "",
+            birthday: this.$store.state.user.userInfo.birthday,
             show_avatar: false,
             show_nikename: false,
             show_birthday: false,
@@ -196,14 +200,10 @@ export default {
                 disabledDate(time) {
                     return time.getTime() > Date.now()
                 }
-            },
-            option: {
-                img: "http://47.93.187.37:8000/img/biztone/963220861_1678248182051.jpeg@380w_214h_1e_1c",
-                size: 1,
-                outputType: "webp"
             }
         }
     },
+    mixins: [signMixin],
     computed: {
         nikename_bytelen() {
             return this.new_nikename.replace(/[^x00-xFF]/g, '**').length // 求字节长度
@@ -267,6 +267,22 @@ export default {
                     val: ""
                 }
             }
+        },
+        grade() {
+            let grade = this.$store.state.user.userInfo.grade
+            if (grade >= 3) {
+                return "强"
+            } else if (grade == 2) {
+                return "中"
+            } else {
+                return "弱"
+            }
+        },
+        level() {
+            if (!!this.pwd_validate.new_pwd) {
+                return checkPwd(this.pwd_validate.new_pwd)
+            }
+            return 0
         }
     },
     methods: {
@@ -308,6 +324,62 @@ export default {
         uploadSuccess() {
             this.$message({ type: "success", message: "头像修改成功" })
             this.fadeToogle('show_avatar', false)
+        },
+        async changeName() {
+            if (this.nikename_status === 2) {
+                let res = await this.$axios.post('/user/change/username', { username: this.new_nikename }, {
+                    headers: {
+                        "authorization": this.$store.state.user.token
+                    }
+                })
+                if (res.data.code === 1) {
+                    this.$message.success("修改成功")
+                    this.$store.dispatch("user/setUserInfo", { username: this.new_nikename })
+                    this.resetVal()
+                    this.fadeToogle('show_nikename', false)
+                } else {
+                    this.$message.error(res.data.msg)
+                }
+            }
+        },
+        async changeBirthday() {
+            if (!!this.birthday) {
+                let res = await this.$axios.post('/user/change/birthday', { birthday: this.birthday }, {
+                    headers: {
+                        "authorization": this.$store.state.user.token
+                    }
+                })
+                if (res.data.code === 1) {
+                    this.$message.success("修改成功")
+                    this.$store.dispatch("user/setUserInfo", { birthday: this.birthday })
+                    this.fadeToogle('show_birthday', false)
+                } else {
+                    this.$message.error(res.data.msg)
+                }
+            }
+        },
+        async changePwd() {
+            if (this.cur_pwd_status.status == 2 && this.new_pwd_status.status == 2 && this.confirm_pwd_status.status == 2) {
+                let res = await this.$axios.post("/user/change/password", {
+                    password: this.AES_encrypt(this.pwd_validate.cur_pwd),
+                    new_password: this.AES_encrypt(this.pwd_validate.new_pwd),
+                    confirm_password: this.AES_encrypt(this.pwd_validate.confirm_pwd),
+                    grade: checkPwd(this.pwd_validate.new_pwd)
+                }, {
+                    headers: {
+                        "authorization": this.$store.state.user.token
+                    }
+                })
+                if (res.data.code === 1) {
+                    this.$message.success("密码修改成功")
+                    this.$cookies.remove("token")
+                    this.$store.dispatch("user/setToken", "")
+                    this.$store.dispatch("user/delUserInfo")
+                    this.$router.push('/user/login')
+                } else {
+                    this.$message.error(res.data.msg)
+                }
+            }
         }
     }
 }

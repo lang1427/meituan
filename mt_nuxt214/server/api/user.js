@@ -8,7 +8,7 @@ const Redis = require("ioredis")
 const redis = new Redis()
 
 const { isEmail } = require('methods-util/dist/node/methods_util.cjs')
-const { aesEncode, aesDecode, SmtpServer, setToken, createSlat, hash256 } = require('../util')
+const { aesEncode, aesDecode, SmtpServer, setToken, createSlat, hash256, formatDate } = require('../util')
 
 user_router.post('/signup', async ctx => {
     let { email, password, readlic, grade } = ctx.request.body
@@ -112,7 +112,7 @@ user_router.post('/signin', async ctx => {
     let pwd = hash256(slat + password)
 
     try {
-        let [rows] = await ctx.state.$mysql.query(`select id,active,username,avatar from mt_users where email=? and password=?`, [email, pwd])
+        let [rows] = await ctx.state.$mysql.query(`select id,active,username,avatar,grade,birthday from mt_users where email=? and password=?`, [email, pwd])
         if (rows.length === 0) {
             return ctx.body = {
                 code: 0,
@@ -126,11 +126,13 @@ user_router.post('/signin', async ctx => {
                 msg: "当前用户未激活"
             }
         }
+        delete user.active
+        user = Object.assign(user, { birthday: formatDate(user.birthday, "yyyy-MM-dd") })
         let token = setToken(user)
         return ctx.body = {
             code: 1,
             token,
-            user: { id: user.id, username: user.username, avatar: user.avatar }
+            user
         }
     } catch (err) {
         console.log(err)
@@ -142,12 +144,6 @@ user_router.post('/signout', async ctx => {
 })
 
 user_router.get('/getUser', async ctx => {
-    if (!ctx.req.auth) {
-        return ctx.body = {
-            code: -1,
-            msg: "未登录"
-        }
-    }
     let user = ctx.req.auth
     if (!user) {
         return ctx.body = {
@@ -156,10 +152,115 @@ user_router.get('/getUser', async ctx => {
         }
     }
 
-    let userRes = await ctx.state.$mysql.execute(`select id,username,avatar from mt_users where id=${user.id}`)
+    let userRes = await ctx.state.$mysql.execute(`select id,username,avatar,grade,birthday from mt_users where id=${user.id}`)
+
     return ctx.body = {
         code: 1,
-        data: userRes[0][0]
+        data: Object.assign(userRes[0][0], { birthday: formatDate(userRes[0][0].birthday, "yyyy-MM-dd") })
+    }
+})
+
+user_router.post('/change/username', async ctx => {
+    let { username } = ctx.request.body
+    if (!username) {
+        return ctx.body = {
+            code: -1,
+            msg: "用户名不能为空"
+        }
+    }
+    try {
+        let [rows] = await ctx.state.$mysql.execute(`update mt_users set username="${username}" where id=${ctx.req.auth.id}`)
+        if (rows.changedRows === 1) {
+            return ctx.body = {
+                code: 1
+            }
+        } else {
+            return ctx.body = {
+                code: 0,
+                msg: "修改用户名失败"
+            }
+        }
+    } catch (e) {
+        return ctx.body = {
+            code: 0,
+            msg: e
+        }
+    }
+})
+
+user_router.post('/change/birthday', async ctx => {
+    let { birthday } = ctx.request.body
+    if (!birthday) {
+        return ctx.body = {
+            code: -1,
+            msg: "生日信息不能为空"
+        }
+    }
+    try {
+        let [rows] = await ctx.state.$mysql.execute(`update mt_users set birthday="${birthday}" where id=${ctx.req.auth.id}`)
+        if (rows.changedRows === 1) {
+            return ctx.body = {
+                code: 1
+            }
+        } else {
+            return ctx.body = {
+                code: 0,
+                msg: "修改生日信息失败"
+            }
+        }
+    } catch (e) {
+        return ctx.body = {
+            code: 0,
+            msg: e
+        }
+    }
+})
+
+user_router.post('/change/password', async ctx => {
+    let { password, new_password, confirm_password, grade } = ctx.request.body
+    if (!password || !new_password || !confirm_password || !grade) {
+        return ctx.body = {
+            code: -1,
+            msg: "password and new_password and confirm_password params cannot be empty"
+        }
+    }
+    if (new_password !== confirm_password) {
+        return ctx.body = {
+            code: -1,
+            msg: "new_password not equal confirm_password"
+        }
+    }
+    try {
+        let [[pwdValid]] = await ctx.state.$mysql.execute(`select slat,password from mt_users where id=${ctx.req.auth.id}`)
+
+        let checkCurPwd = hash256(pwdValid.slat + password)
+
+        if (checkCurPwd !== pwdValid.password) {
+            return ctx.body = {
+                code: 0,
+                msg: "当前密码错误"
+            }
+        }
+
+        let newSlat = createSlat()
+        let newPwd = hash256(newSlat + new_password)
+
+        let [rows] = await ctx.state.$mysql.execute(`update mt_users set slat="${newSlat}",password="${newPwd}",grade=${grade} where id=${ctx.req.auth.id}`)
+        if (rows.changedRows === 1) {
+            return ctx.body = {
+                code: 1
+            }
+        } else {
+            return ctx.body = {
+                code: 0,
+                msg: "修改密码失败"
+            }
+        }
+    } catch (e) {
+        return ctx.body = {
+            code: 0,
+            msg: e
+        }
     }
 })
 
