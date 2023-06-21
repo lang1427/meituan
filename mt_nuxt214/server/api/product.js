@@ -110,5 +110,52 @@ product_router.post("/home", async ctx => {
     }
 })
 
+product_router.post('/meishi/page/:page', async ctx => {
+    let page = ctx.params.page || 1
+    const pageCount = 20
+    let { cityname } = ctx.request.body
+    if (!cityname) {
+        return ctx.body = {
+            code: -1,
+            msg: "cityname 为必须参数"
+        }
+    }
+    try {
+        let [cityRes] = await ctx.state.$mysql.execute(`select id from city where cityname="${cityname}"`)
+        if (cityRes.length === 0) {
+            return ctx.body = {
+                code: 0,
+                msg: "没有找到当前城市"
+            }
+        }
+
+        let [areaRes] = await ctx.state.$mysql.execute(`select id,cityname from city where pid=${cityRes[0].id}`)
+        let [categorys] = await ctx.state.$mysql.execute(`select id,name from mt_category where cid=1`)
+
+        let offset = (page - 1) * pageCount
+        // 每页20条店铺信息
+        let [rows] = await ctx.state.$mysql.execute(`select id,name,img_url,address_desc,avgPrice,avgScore,commentNum from mt_shop where city_id = ${cityRes[0].id} order by create_time desc limit ${offset},${pageCount}`)
+        let [countRes] = await ctx.state.$mysql.execute(`select count(*) as count from mt_shop where city_id = ${cityRes[0].id} `)
+        // 猜你喜欢
+        let likeRes = await ctx.state.$mysql.execute(`select id,name,img_url,address_desc,avgPrice,avgScore from mt_shop where city_id = ${cityRes[0].id} order by avgScore desc limit 15`)
+
+        return ctx.body = {
+            code: 1,
+            count: countRes[0].count,
+            cityname,
+            area: areaRes,
+            categorys,
+            list: rows,
+            likes: likeRes[0]
+        }
+    } catch (e) {
+        console.log(e)
+        return ctx.body = {
+            code: 0,
+            msg: e
+        }
+    }
+})
+
 module.exports = product_router
 
