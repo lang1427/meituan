@@ -35,32 +35,9 @@
                 </div>
                 <div class="d-right">
                     <div class="big">
-                        <div class="imgbox" style="height: 100%; width: 100%;"><img
-                                src="http://47.93.187.37:8000/img/biztone/963220861_1678248182051.jpeg@380w_214h_1e_1c">
+                        <div class="imgbox" style="height: 100%; width: 100%;"><img :src="ms_obj.img_url">
                         </div>
                     </div>
-                    <ul>
-                        <li>
-                            <div class="imgbox" style="height: 100%; width: 100%;"><img
-                                    src="http://47.93.187.37:8000/p0/msmerchant/a7acb5235bc71d30758cda8d428b9c482974415.jpg@92w_50h_1e_1c">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="imgbox" style="height: 100%; width: 100%;"><img
-                                    src="http://47.93.187.37:8000/p0/msmerchant/f53254059c65dc087b02440ad1144cc01761986.jpg@92w_50h_1e_1c">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="imgbox" style="height: 100%; width: 100%;"><img
-                                    src="http://47.93.187.37:8000/p0/msmerchant/b6722ec9d3696fe83b98b84560a9d2303077700.jpg@92w_50h_1e_1c">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="imgbox" style="height: 100%; width: 100%;"><img
-                                    src="http://47.93.187.37:8000/p0/msmerchant/cded66ac7db7de5b45ef4f884ffebf8e1460569.jpg@92w_50h_1e_1c">
-                            </div>
-                        </li>
-                    </ul>
                 </div>
                 <div><span></span></div>
             </div>
@@ -435,21 +412,8 @@ export default {
             }
 
             .big {
-                height: 214px;
+                height: 265px;
                 width: 100%;
-
-            }
-
-            ul {
-                width: 385px;
-                padding-top: 10px;
-
-                li {
-                    float: left;
-                    width: 92px;
-                    margin-right: 4px;
-                    height: 50px;
-                }
             }
         }
     }

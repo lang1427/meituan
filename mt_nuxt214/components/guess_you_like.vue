@@ -40,6 +40,11 @@ export default {
         color: #333;
     }
 
+    img{
+        width: 100%;
+        height: 100%;
+    }
+
     ul {
         li {
             margin-bottom: 20px;
