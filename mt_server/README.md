@@ -44,3 +44,29 @@
 - avatar 用户头像
 - birthday 生日
 - active 是否激活
+
+
+## nginx 图像代理
+```conf
+    server {
+        listen  8000;
+        server_name localhost;
+
+        location /img {
+           proxy_pass https://img.meituan.net/;
+        }
+
+        location /p1 {
+                proxy_pass https://p1.meituan.net/;
+        }
+
+        location /p0 {
+                proxy_pass https://p0.meituan.net/;
+        }
+
+        location /qcloud {
+                proxy_pass https://qcloud.dpfile.com/;
+        }
+   }
+
+```
