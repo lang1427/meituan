@@ -6,7 +6,6 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
 const mysql = require("mysql2/promise")
-const { checkToken, setToken } = require("./util")
 const CONF = require('./conf')
 
 const app = new Koa()
@@ -33,20 +32,21 @@ app.keys = ['mt', parseInt(Math.random() * 1e6).toString()];
 app.use(session({
   key: 'mt',
   prefix: 'mt:uid',
-  store: redisStore({
+  ttl: () => {
+    return 1000 * 60 * 25; // session25分钟
+  },
+  rolling: true, // 自动续期
+  store: new redisStore({
     host: CONF.Redis.host,
     port: CONF.Redis.port
   })
-}));
+}))
 
 app.use(async (ctx, next) => {
-  // 拿取token 数据 按照自己传递方式写
-  var token = ctx.req.headers.authorization;
-  // 检查token是否有效（过期和非法）
-  var auth = token ? checkToken(token) : null;
-  if (auth) {
-    //将当前用户的信息挂在req对象上，方便后面的路由方法使用
-    ctx.req.auth = auth;
+
+  var token = ctx.session.user;
+
+  if (token !== undefined) {
     await next(); //继续下一步路由
   } else {
     //需要登录态域名白名单

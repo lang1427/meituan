@@ -8,10 +8,6 @@ const algorithm = "aes-256-cbc"  // 加密算法
 const key = crypto.randomBytes(32)  // 加密key
 const iv = crypto.randomBytes(16)  // 加密偏移量
 
-const JWT = require("jsonwebtoken")
-const tokenTime = 60 * 60 * 24;// token时效 20分钟
-const SecretKey = fs.readFileSync(path.join(__dirname, "./rsa_private_key.pem"), 'utf-8')
-
 
 module.exports = {
     SmtpServer: async (rec_email, text) => {
@@ -54,24 +50,6 @@ module.exports = {
         let decrypted = decipher.update(encryptedText)
         decrypted = Buffer.concat([decrypted, decipher.final()])
         return decrypted.toString()
-    },
-    setToken: (data) => {
-        return JWT.sign(data, SecretKey, {
-            expiresIn: tokenTime // 默认以秒为单位
-        });
-    },
-    checkToken: (token) => {
-        var user = null;
-        try {
-            //如果根据token查到了用户信息，表示校验通过
-            var decoded = JWT.verify(token, SecretKey);
-            delete decoded.iat
-            delete decoded.exp
-            user = decoded;
-        } catch (e) {
-            // console.log("解析token失败", e)
-        }
-        return user
     },
     getPosiRange: (longitude, latitude, distince) => {
         /**

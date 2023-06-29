@@ -52,14 +52,14 @@ upload_router.post('/change/avatar', upload.single('avatar'), async ctx => {
         }
     }
 
-    let user = ctx.req.auth
+    let user = ctx.session.user
 
     try {
         let fileId = await fdfs.upload(ctx.file.buffer, {
             ext: ctx.file.mimetype.substring(6)
         })
         let avatar = fdfsServer.accessAddress + fileId
-        let [rows] = await ctx.state.$mysql.execute(`update mt_users set avatar="${avatar}" where id=${user.id}`)
+        let [rows] = await ctx.state.$mysql.execute(`update mt_users set avatar="${avatar}" where id=${user}`)
         if (rows.affectedRows === 1) {
             return ctx.body = {
                 code: 1,

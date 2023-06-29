@@ -71,11 +71,11 @@
                             </div>
                             <div class="dialog-body">
                                 <div class="row"><label class="field-name">当前昵称</label><span class="field-value">{{
-                                        $store.state.user.userInfo.username }}</span></div>
+                                    $store.state.user.userInfo.username }}</span></div>
                                 <div class="row"><label class="field-name">新昵称</label>
                                     <div
-                                        :class=" ['field-input', nikename_status == 0 ? 'input-normal' : nikename_status == 1 ? 'input-error' : 'input-success'] ">
-                                        <input type="text" v-model=" new_nikename " @input=" validateName() ">
+                                        :class="['field-input', nikename_status == 0 ? 'input-normal' : nikename_status == 1 ? 'input-error' : 'input-success']">
+                                        <input type="text" v-model="new_nikename" @input=" validateName()">
                                         <img src="~/assets/images/icon/fail.png" class="icon icon-fail" alt="">
                                         <img src="~/assets/images/icon/success.png" class="icon icon-success" alt="">
                                         <p class="error-msg">{{ err_msg }}</p>
@@ -84,46 +84,46 @@
                                 </div>
                             </div>
                             <div class="btn-group">
-                                <button :class=" ['btn', 'btn-ok', nikename_status == 2 ? '' : 'btn-disabled'] "
-                                    @click=" changeName ">确认修改</button>
+                                <button :class="['btn', 'btn-ok', nikename_status == 2 ? '' : 'btn-disabled']"
+                                    @click="changeName">确认修改</button>
                                 <button class="btn btn-cancel"
-                                    @click=" resetVal(); fadeToogle('show_nikename', false) ">取消</button>
+                                    @click=" resetVal(); fadeToogle('show_nikename', false)">取消</button>
                             </div>
                         </div>
                     </div>
-                    <div :class=" ['dialog-container', show_birthday ? 'fadeIn' : 'fadeOut'] ">
+                    <div :class="['dialog-container', show_birthday ? 'fadeIn' : 'fadeOut']">
                         <div class="dialog-box">
                             <div class="dialog-head clearfix">
                                 <p class="dialog-name">修改生日</p>
-                                <p class="dialog-close" @click=" fadeToogle('show_birthday', false) "><img
+                                <p class="dialog-close" @click=" fadeToogle('show_birthday', false)"><img
                                         src="~/assets/images/icon/close.png" alt=""></p>
                             </div>
                             <div class="dialog-body">
                                 <div class="row">
                                     <label class="field-name" style="width:30%;transform:translateY(-3px)">生日</label>
-                                    <el-date-picker value-format="yyyy-MM-dd" v-model=" birthday " type="date"
-                                        :picker-options=" pickerOptions " placeholder="选择日期"></el-date-picker>
+                                    <el-date-picker value-format="yyyy-MM-dd" v-model="birthday" type="date"
+                                        :picker-options="pickerOptions" placeholder="选择日期"></el-date-picker>
                                 </div>
                             </div>
                             <div class="btn-group">
-                                <button :class=" ['btn', 'btn-ok', !birthday ? 'btn-disabled' : ''] "
-                                    @click=" changeBirthday ">确认修改</button>
-                                <button class="btn btn-cancel" @click=" fadeToogle('show_birthday', false) ">取消</button>
+                                <button :class="['btn', 'btn-ok', !birthday ? 'btn-disabled' : '']"
+                                    @click="changeBirthday">确认修改</button>
+                                <button class="btn btn-cancel" @click=" fadeToogle('show_birthday', false)">取消</button>
                             </div>
                         </div>
                     </div>
-                    <div :class=" ['dialog-container', show_pwd ? 'fadeIn' : 'fadeOut'] ">
+                    <div :class="['dialog-container', show_pwd ? 'fadeIn' : 'fadeOut']">
                         <div class="dialog-box">
                             <div class="dialog-head clearfix">
                                 <p class="dialog-name">设置密码</p>
-                                <p class="dialog-close" @click=" resetPwdBox(); fadeToogle('show_pwd', false) "><img
+                                <p class="dialog-close" @click=" resetPwdBox(); fadeToogle('show_pwd', false)"><img
                                         src="~/assets/images/icon/close.png" alt=""></p>
                             </div>
                             <div class="dialog-body">
                                 <div class="row"><label class="field-name">当前密码</label>
                                     <div
-                                        :class=" ['field-input', cur_pwd_status.status == 0 ? 'input-normal' : cur_pwd_status.status == 1 ? 'input-error' : 'input-success'] ">
-                                        <input type="password" v-model=" pwd_validate.cur_pwd ">
+                                        :class="['field-input', cur_pwd_status.status == 0 ? 'input-normal' : cur_pwd_status.status == 1 ? 'input-error' : 'input-success']">
+                                        <input type="password" v-model="pwd_validate.cur_pwd">
                                         <img src="~/assets/images/icon/fail.png" class="icon icon-fail" alt=""><img
                                             src="~/assets/images/icon/success.png" class="icon icon-success" alt="">
                                         <p class="error-msg">{{ cur_pwd_status.val }}</p>
@@ -131,25 +131,25 @@
                                 </div>
                                 <div class="row clearfix"><label class="field-name">密码</label>
                                     <div
-                                        :class=" ['field-input', new_pwd_status.status == 0 ? 'input-normal' : new_pwd_status.status == 1 ? 'input-error' : 'input-success'] ">
-                                        <input type="password" v-model=" pwd_validate.new_pwd ">
+                                        :class="['field-input', new_pwd_status.status == 0 ? 'input-normal' : new_pwd_status.status == 1 ? 'input-error' : 'input-success']">
+                                        <input type="password" v-model="pwd_validate.new_pwd">
                                         <img src="~/assets/images/icon/fail.png" class="icon icon-fail" alt=""><img
                                             src="~/assets/images/icon/success.png" class="icon icon-success" alt="">
                                     </div>
                                     <div class="pwd-level clearfix">
-                                        <div :class=" [level == 1 ? 'level level-0' : 'level'] ">弱</div>
-                                        <div :class=" [level == 2 ? 'level level-1' : 'level'] ">中</div>
-                                        <div :class=" [level > 2 ? 'level level-2' : 'level'] ">强</div>
+                                        <div :class="[level == 1 ? 'level level-0' : 'level']">弱</div>
+                                        <div :class="[level == 2 ? 'level level-1' : 'level']">中</div>
+                                        <div :class="[level > 2 ? 'level level-2' : 'level']">强</div>
                                     </div>
-                                    <div :class=" ['field-input', new_pwd_status.status == 0 ? 'input-normal' : new_pwd_status.status == 1 ? 'input-error' : 'input-success'] "
+                                    <div :class="['field-input', new_pwd_status.status == 0 ? 'input-normal' : new_pwd_status.status == 1 ? 'input-error' : 'input-success']"
                                         style="float:right;margin-right:106px">
                                         <p class="error-msg">{{ new_pwd_status.val }}</p>
                                     </div>
                                 </div>
                                 <div class="row"><label class="field-name">确认密码</label>
                                     <div
-                                        :class=" ['field-input', confirm_pwd_status.status == 0 ? 'input-normal' : confirm_pwd_status.status == 1 ? 'input-error' : 'input-success'] ">
-                                        <input type="password" v-model=" pwd_validate.confirm_pwd ">
+                                        :class="['field-input', confirm_pwd_status.status == 0 ? 'input-normal' : confirm_pwd_status.status == 1 ? 'input-error' : 'input-success']">
+                                        <input type="password" v-model="pwd_validate.confirm_pwd">
                                         <img src="~/assets/images/icon/fail.png" class="icon icon-fail" alt=""><img
                                             src="~/assets/images/icon/success.png" class="icon icon-success" alt="">
                                         <p class="error-msg">{{ confirm_pwd_status.val }}</p>
@@ -158,10 +158,10 @@
                             </div>
                             <div class="btn-group">
                                 <button
-                                    :class=" ['btn', 'btn-ok', (cur_pwd_status.status == 2 && new_pwd_status.status == 2 && confirm_pwd_status.status == 2) ? '' : 'btn-disabled'] "
-                                    @click=" changePwd ">确认修改</button>
+                                    :class="['btn', 'btn-ok', (cur_pwd_status.status == 2 && new_pwd_status.status == 2 && confirm_pwd_status.status == 2) ? '' : 'btn-disabled']"
+                                    @click="changePwd">确认修改</button>
                                 <button class="btn btn-cancel"
-                                    @click=" resetPwdBox(); fadeToogle('show_pwd', false) ">取消</button>
+                                    @click=" resetPwdBox(); fadeToogle('show_pwd', false)">取消</button>
                             </div>
                         </div>
                     </div>
@@ -327,11 +327,7 @@ export default {
         },
         async changeName() {
             if (this.nikename_status === 2) {
-                let res = await this.$axios.post('/user/change/username', { username: this.new_nikename }, {
-                    headers: {
-                        "authorization": this.$store.state.user.token
-                    }
-                })
+                let res = await this.$axios.post('/user/change/username', { username: this.new_nikename })
                 if (res.data.code === 1) {
                     this.$message.success("修改成功")
                     this.$store.dispatch("user/setUserInfo", { username: this.new_nikename })
@@ -344,11 +340,7 @@ export default {
         },
         async changeBirthday() {
             if (!!this.birthday) {
-                let res = await this.$axios.post('/user/change/birthday', { birthday: this.birthday }, {
-                    headers: {
-                        "authorization": this.$store.state.user.token
-                    }
-                })
+                let res = await this.$axios.post('/user/change/birthday', { birthday: this.birthday })
                 if (res.data.code === 1) {
                     this.$message.success("修改成功")
                     this.$store.dispatch("user/setUserInfo", { birthday: this.birthday })
@@ -365,15 +357,9 @@ export default {
                     new_password: this.AES_encrypt(this.pwd_validate.new_pwd),
                     confirm_password: this.AES_encrypt(this.pwd_validate.confirm_pwd),
                     grade: checkPwd(this.pwd_validate.new_pwd)
-                }, {
-                    headers: {
-                        "authorization": this.$store.state.user.token
-                    }
                 })
                 if (res.data.code === 1) {
                     this.$message.success("密码修改成功")
-                    this.$cookies.remove("token")
-                    this.$store.dispatch("user/setToken", "")
                     this.$store.dispatch("user/delUserInfo")
                     this.$router.push('/user/login')
                 } else {

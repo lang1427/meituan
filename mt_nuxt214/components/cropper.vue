@@ -196,7 +196,6 @@ export default {
                     url: '/upload/change/avatar',
                     method: 'post',
                     headers: {
-                        "authorization": this.$store.state.user.token,
                         'Content-Type': 'multipart/form-data'
                     },
                     data: formData

@@ -8,7 +8,7 @@ const Redis = require("ioredis")
 const redis = new Redis()
 
 const { isEmail } = require('methods-util/dist/node/methods_util.cjs')
-const { aesEncode, aesDecode, SmtpServer, setToken, createSlat, hash256, formatDate } = require('../util')
+const { aesEncode, aesDecode, SmtpServer, createSlat, hash256, formatDate } = require('../util')
 
 user_router.post('/signup', async ctx => {
     let { email, password, readlic, grade } = ctx.request.body
@@ -127,11 +127,12 @@ user_router.post('/signin', async ctx => {
             }
         }
         delete user.active
-        user = Object.assign(user, { birthday: formatDate(user.birthday, "yyyy-MM-dd") })
-        let token = setToken(user)
+        if (!!user.birthday) {
+            user = Object.assign(user, { birthday: formatDate(user.birthday, "yyyy-MM-dd") })
+        }
+        ctx.session.user = user.id
         return ctx.body = {
             code: 1,
-            token,
             user
         }
     } catch (err) {
@@ -144,19 +145,25 @@ user_router.post('/signout', async ctx => {
 })
 
 user_router.get('/getUser', async ctx => {
-    let user = ctx.req.auth
-    if (!user) {
+
+    let user = ctx.session.user
+    if (user === undefined) {
         return ctx.body = {
             code: -1,
             msg: "未登录"
         }
     }
 
-    let userRes = await ctx.state.$mysql.execute(`select id,username,avatar,grade,birthday from mt_users where id=${user.id}`)
+    let userRes = await ctx.state.$mysql.execute(`select id,username,avatar,grade,birthday from mt_users where id=${user}`)
+
+    let userInfo = userRes[0][0]
+    if (!!userInfo.birthday) {
+        userInfo = Object.assign(userInfo, { birthday: formatDate(userInfo.birthday, "yyyy-MM-dd") })
+    }
 
     return ctx.body = {
         code: 1,
-        data: Object.assign(userRes[0][0], { birthday: formatDate(userRes[0][0].birthday, "yyyy-MM-dd") })
+        data: userInfo
     }
 })
 
@@ -169,7 +176,7 @@ user_router.post('/change/username', async ctx => {
         }
     }
     try {
-        let [rows] = await ctx.state.$mysql.execute(`update mt_users set username="${username}" where id=${ctx.req.auth.id}`)
+        let [rows] = await ctx.state.$mysql.execute(`update mt_users set username="${username}" where id=${ctx.session.user}`)
         if (rows.changedRows === 1) {
             return ctx.body = {
                 code: 1
@@ -197,7 +204,7 @@ user_router.post('/change/birthday', async ctx => {
         }
     }
     try {
-        let [rows] = await ctx.state.$mysql.execute(`update mt_users set birthday="${birthday}" where id=${ctx.req.auth.id}`)
+        let [rows] = await ctx.state.$mysql.execute(`update mt_users set birthday="${birthday}" where id=${ctx.session.user}`)
         if (rows.changedRows === 1) {
             return ctx.body = {
                 code: 1
@@ -231,7 +238,7 @@ user_router.post('/change/password', async ctx => {
         }
     }
     try {
-        let [[pwdValid]] = await ctx.state.$mysql.execute(`select slat,password from mt_users where id=${ctx.req.auth.id}`)
+        let [[pwdValid]] = await ctx.state.$mysql.execute(`select slat,password from mt_users where id=${ctx.session.user}`)
 
         let checkCurPwd = hash256(pwdValid.slat + password)
 
@@ -245,7 +252,7 @@ user_router.post('/change/password', async ctx => {
         let newSlat = createSlat()
         let newPwd = hash256(newSlat + new_password)
 
-        let [rows] = await ctx.state.$mysql.execute(`update mt_users set slat="${newSlat}",password="${newPwd}",grade=${grade} where id=${ctx.req.auth.id}`)
+        let [rows] = await ctx.state.$mysql.execute(`update mt_users set slat="${newSlat}",password="${newPwd}",grade=${grade} where id=${ctx.session.user}`)
         if (rows.changedRows === 1) {
             return ctx.body = {
                 code: 1

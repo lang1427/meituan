@@ -90,8 +90,6 @@ export default {
           if (this.$refs.license.validatorLicense()) {
             this.$axios.post('/user/signin', { email: this.ruleForm.email, password: this.AES_encrypt(this.ruleForm.pass), readlic: 1 }).then(res => {
               if (res.data.code === 1) {
-                this.$cookies.set('token', res.data.token)
-                this.$store.dispatch('user/setToken', res.data.token)
                 this.$store.dispatch('user/setUserInfo', res.data.user)
                 this.$router.push('/user/info')
               } else {
