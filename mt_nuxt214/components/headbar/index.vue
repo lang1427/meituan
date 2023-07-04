@@ -6,12 +6,13 @@
                     <span class="header-icon el-icon-location-information"></span>
                     <span class="current-city">{{ $store.state.geo.position.city }}</span>
                     <a class="change-city" href="https://www.meituan.com/changecity/">切换城市</a>
-                    <div class="near-citys">[<a class="city-guess" href="https://fs.meituan.com">佛山</a><a class="city-guess"
-                            href="https://sd.meituan.com">顺德</a><a class="city-guess" href="https://ns.meituan.com">南沙</a>]
-                    </div>
-                    <div class="user-entry" style="display: inline-block;">
+                    <div class="user-entry" style="display: inline-block;" v-if="!$store.state.user.userInfo.hasOwnProperty('id')">
                         <nuxt-link class="growth-entry user-up" to="/user/login">立即登录</nuxt-link>
                         <nuxt-link class="extra-entry" to="/user/register">注册</nuxt-link>
+                    </div>
+                    <div class="user-entry" style="display: inline-block;" v-else>
+                        <span class="growth-entry user-up" to="/user/login">{{ $store.state.user.userInfo.username }}</span>
+                        <nuxt-link class="extra-entry" to="/user/exit">退出</nuxt-link>
                     </div>
                 </div>
                 <nav class="header-bar-nav">
@@ -180,18 +181,6 @@ export default {
 
                     &:hover {
                         color: #FE8C00
-                    }
-                }
-
-                .near-citys {
-                    display: inline-block;
-
-                    .city-guess {
-                        margin: 0 4px;
-
-                        &:hover {
-                            color: #FE8C00;
-                        }
                     }
                 }
 

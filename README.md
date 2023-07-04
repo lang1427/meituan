@@ -8,18 +8,6 @@
 
 对中文进行编码 : `encodeURIComponent(username)`
 
-```js
-// exit.vue
-export default {
-  // 使用中间件实现退出登录操作；因为退出登录没有dom操作，由<next-link to=exit />进行的
-  middleware: async (ctx) => {
-    let { status, data } = await ctx.$axios.get('/users/exit');
-    if (status === 200 && data && data.code == 0) {
-      window.location.href = '/';
-    }
-  },
-};
-```
 
 ### 高德地图
 

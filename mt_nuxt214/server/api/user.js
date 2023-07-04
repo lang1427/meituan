@@ -141,7 +141,10 @@ user_router.post('/signin', async ctx => {
 })
 
 user_router.post('/signout', async ctx => {
-
+    ctx.session.user = undefined
+    return ctx.body = {
+        code: 0
+    }
 })
 
 user_router.get('/getUser', async ctx => {
