@@ -20,17 +20,7 @@
         <div class="citylist">
             <h3 class="l-attr">热门城市：</h3>
             <p class="r-info">
-                <a href="//bj.meituan.com" class="link city">北京</a>
-                <a href="//sh.meituan.com" class="link city">上海</a>
-                <a href="//gz.meituan.com" class="link city">广州</a>
-                <a href="//sz.meituan.com" class="link city">深圳</a>
-                <a href="//tj.meituan.com" class="link city">天津</a>
-                <a href="//xa.meituan.com" class="link city">西安</a>
-                <a href="//cq.meituan.com" class="link city">重庆</a>
-                <a href="//hz.meituan.com" class="link city">杭州</a>
-                <a href="//nj.meituan.com" class="link city">南京</a>
-                <a href="//wh.meituan.com" class="link city">武汉</a>
-                <a href="//cd.meituan.com" class="link city">成都</a>
+                <nuxt-link target="_blank" :to="'/?cityname=' + item" v-for="item of hot_city" :key="item" class="link city">{{ item }}</nuxt-link>
             </p>
         </div>
         <div class="alphabet">
@@ -43,8 +33,8 @@
             <div v-for="item of city_data" :key="item.title" class="city-area" :id="`city-${item.title}`">
                 <span class="city-label">{{ item.title }}</span>
                 <span class="cities">
-                    <a v-for="city of item.items" :key="city.cityname" href="//as.meituan.com" class="link city">{{
-                        city.cityname }}</a>
+                    <nuxt-link target="_blank" v-for="city of item.items" :key="city.cityname" :to="'/?cityname=' + city.cityname" class="link city">{{
+                        city.cityname }}</nuxt-link>
                 </span>
             </div>
         </div>
@@ -60,7 +50,8 @@ export default {
             province_select: [],
             province_value: null,
             city_select: [],
-            city_value: null
+            city_value: null,
+            hot_city: ['北京', '上海', '广州', '深圳', '天津', '西安', '重庆', '杭州', '南京', '武汉', '成都']
         }
     },
     computed: {
@@ -81,7 +72,7 @@ export default {
                 console.log("get city select failed:", e)
             }
         },
-        labelFor(letter){
+        labelFor(letter) {
             this.$router.push(`${this.$route.path}#city-${letter}`)
         }
     },

@@ -5,7 +5,7 @@
                 <div class="header-bar-position" style="display: block;">
                     <span class="header-icon el-icon-location-information"></span>
                     <span class="current-city">{{ $store.state.geo.position.city }}</span>
-                    <a class="change-city" href="https://www.meituan.com/changecity/">切换城市</a>
+                    <nuxt-link class="change-city" to="/changecity">切换城市</nuxt-link>
                     <div class="user-entry" style="display: inline-block;" v-if="!$store.state.user.userInfo.hasOwnProperty('id')">
                         <nuxt-link class="growth-entry user-up" to="/user/login">立即登录</nuxt-link>
                         <nuxt-link class="extra-entry" to="/user/register">注册</nuxt-link>
