@@ -17,3 +17,9 @@
 
 - 高德地图Web服务Api
   - [逆地理编码](https://lbs.amap.com/api/webservice/guide/api/georegeo)  
+
+- 地图JS Api `https://lbs.amap.com/api/jsapi-v2/summary/`
+
+- 地图JS Api属性参考手册 `https://lbs.amap.com/api/javascript-api-v2/documentation#map`
+
+- 在线编辑 `https://developer.amap.com/demo/jsapi-v2/example/doc-demo/doc-base-control`

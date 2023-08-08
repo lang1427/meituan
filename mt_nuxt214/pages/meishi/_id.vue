@@ -20,7 +20,8 @@
                         </p>
                     </div>
                     <div class="address">
-                        <p>地址：{{ ms_obj.address_desc }}<b></b>
+                        <amap v-show="show_map" :point="[ms_obj.longitude,ms_obj.latitude]" :width="650"/>
+                        <p>地址：{{ ms_obj.address_desc }}<b @click="showMap"></b>
                         </p>
                         <p>电话：{{ ms_obj.phone }}
                         </p>
@@ -190,13 +191,16 @@
 
 <script>
 import guessYouLike from "~/components/guess_you_like.vue";
+import amap from '~/components/map.vue';
 export default {
     components: {
-        guessYouLike
+        guessYouLike,
+        amap
     },
     data() {
         return {
-            ms_obj: {}
+            ms_obj: {},
+            show_map:false
         }
     },
     computed: {
@@ -217,6 +221,11 @@ export default {
             // console.log(e)
         }
 
+    },
+    methods:{
+        showMap(){
+            this.show_map = !this.show_map
+        }
     }
 }
 </script>

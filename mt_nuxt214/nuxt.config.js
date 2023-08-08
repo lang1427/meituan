@@ -34,7 +34,8 @@ module.exports = {
   */
   plugins: [
     '@/plugins/element-ui',
-    { src: '@/plugins/vue-cropper', ssr: false }
+    { src: '@/plugins/vue-cropper', ssr: false },
+    { src: '@/plugins/amap', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules

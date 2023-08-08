@@ -141,6 +141,8 @@ _SSR 中 mounted 生命周期函数不会被执行即查看源码不会有新内
          pwd:"" // 发件人授权码
       },
       aMapWebApiKEY:"",    // 高德地图Web服务key
+      aMapWebKey:"",  // 高德地图Web端key
+      aMapWebSecurity:"", // 高德地图Web端秘钥
       tokenApi:["/upload/change/avatar","/user/change/username","/user/change/birthday","/user/change/password"],
       fdfsServer: {
          host: "",
@@ -169,4 +171,11 @@ _SSR 中 mounted 生命周期函数不会被执行即查看源码不会有新内
 1. `Cannot find module 'node:fs'` node:v12.22.1
 
    - win7 系统已经不能升级到支持`node:`(内置模块命名空间)，所以只能对这里的 node_modules 目录下的依赖去掉`node:`,采用的方式是降低依赖包的版本`npm i nuxt@2.15.8 -S`
+
+2. `Can not find callback: onLoad, try define it before load JsApi`
+   - **amap.js** : `https://webapi.amap.com/maps?v=2.0&key=${aMapWebKey}&callback=onLoad`,
+   - **map.vue** : `window.onLoad = ()=>{ ... }`
+   直接访问携带地图组件的页面*美食详情页*是不会出现上面的问题，但是访问没有携带地图组件的页面就会报上面的错误。
+   原因：当地图插件append页面加载完毕后就会调用callback方法，所以页面中只有带map.vue组件才正常使用，否则就会报上面的错误
+   解决：去掉callback，同时需要使用原生onload的方式创建地图，否则会找不到AMap相关的属性和方法
 
