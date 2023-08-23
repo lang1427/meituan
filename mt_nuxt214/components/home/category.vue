@@ -9,7 +9,8 @@
                 target="_blank">{{ item.name }}</a></span></span><i class="nav-right-arrow"></i></li>
       </ul>
     </div>
-    <div class="category-nav-detail-wrapper" ref="categoryDetailWrapper" @mouseenter="handleEnter()" @mouseleave="handleLeave()">
+    <!-- @mouseenter="handleEnter('')" 转入空串 防止String(index)时 index为undefined -->
+    <div class="category-nav-detail-wrapper" ref="categoryDetailWrapper" @mouseenter="handleEnter('')" @mouseleave="handleLeave()">
       <div :class="['category-nav-detail',index === handleIndex ? 'active':'' ]" v-for="(item,index) of $store.state.home.category">
         <div class="detail-area">
           <div class="detail-title-wrapper clearfix">
@@ -37,7 +38,7 @@ export default {
   methods: {
     handleEnter(index) {
       this.$refs.categoryDetailWrapper.style = "display:block;"
-      if(!!index){
+      if(!!String(index)){  // index 数字类型 = 0 时 存在隐式类型转化
         this.handleIndex = index
       }
     },
@@ -124,13 +125,14 @@ export default {
     display: none;
     position: absolute;
     top: 60px;
-    left: 230px;
+    left: 228px;
     width: 400px;
     height: 416px;
     background-color: #fff;
     z-index: 199;
     color: #666;
     overflow: hidden;
+    border-left: 1px solid #E5E5E5;
 
     .category-nav-detail {
       display: none;
