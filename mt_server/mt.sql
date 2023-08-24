@@ -49,3 +49,12 @@ CREATE TABLE mt_users(
   `create_time` INT(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
+
+CREATE TABLE `subway` (
+    `city_id` INT(11) NOT NULL,
+    `line` VARCHAR(10) NOT NULL,
+    `name` VARCHAR(10) NOT NULL,
+    `longitude` VARCHAR(10) NOT NULL,
+    `latitude` VARCHAR(10) NOT NULL,
+    index(`city_id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;

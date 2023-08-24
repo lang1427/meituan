@@ -45,6 +45,14 @@
 - birthday 生日
 - active 是否激活
 
+### 地铁站表
+
+- city_id 城市id
+- line  线名
+- name  站名
+- longitude 经度
+- latitude 纬度
+
 
 ## nginx 图像代理
 ```conf
