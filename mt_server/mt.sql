@@ -58,3 +58,24 @@ CREATE TABLE `subway` (
     `latitude` VARCHAR(10) NOT NULL,
     index(`city_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
+
+CREATE TABLE `mt_lvyou` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL DEFAULT '',
+  `address_desc` VARCHAR(100) NOT NULL DEFAULT '',
+  `city_id` INT(11) NOT NULL,
+  `img_url` VARCHAR(180) NOT NULL,
+  `longitude` VARCHAR(10) NOT NULL,
+  `latitude` VARCHAR(10) NOT NULL,
+  `phone` VARCHAR(25),
+  `open_time` VARCHAR(50),
+  `introduction` VARCHAR(250),
+  `consumers` VARCHAR(10) NOT NULL,
+  `cateName` VARCHAR(10) NOT NULL,
+  `avgPrice` VARCHAR(10),
+  `avgScore` VARCHAR(3),
+  `level` VARCHAR(10) NOT NULL,
+  `areaName` VARCHAR(10),
+  `create_time` INT(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;

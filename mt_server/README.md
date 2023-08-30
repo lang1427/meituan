@@ -53,6 +53,25 @@
 - longitude 经度
 - latitude 纬度
 
+### 旅游景点表
+
+- id 景点 id
+- name 景点名称
+- address_desc 景点地址
+- city_id 城市 id
+- imgUrl 景点头像
+- longitude 经度
+- latitude 纬度
+- phone 联系电话
+- openTime 营业时间
+- introduction 介绍
+- consumers 消费人次
+- cateName 景点类型
+- avgPrice 平均价位
+- avgScore 平均评分
+- level 景点级别
+- areaName 区域名称、地铁站名称
+
 
 ## nginx 图像代理
 ```conf
