@@ -157,5 +157,25 @@ product_router.post('/meishi/page/:page', async ctx => {
     }
 })
 
+product_router.get('/hotel', async ctx => {
+
+    let { city_id, hotel_type, page, count } = ctx.query
+    if (!city_id || !hotel_type || !page || !count) {
+        return ctx.body = {
+            code: -1
+        }
+    }
+    try {
+        let [rows] = await ctx.state.$mysql.execute(`select id,avgPrice,img_url,name,notice,address_desc from mt_shop where city_id=${city_id} and type=${hotel_type} limit ${(page - 1) * count},${count};`)
+        return ctx.body = {
+            code: 1,
+            data: rows
+        }
+    } catch (e) {
+        console.log("err:", e)
+        return ctx.body = "Not Found"
+    }
+})
+
 module.exports = product_router
 
