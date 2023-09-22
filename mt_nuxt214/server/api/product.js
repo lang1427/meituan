@@ -7,6 +7,53 @@ const product_router = new Router({
     prefix: "/product"
 })
 
+product_router.post("/home", async ctx => {
+
+    let { cityname } = ctx.request.body
+    if (!cityname) {
+        return ctx.body = {
+            code: -1,
+            msg: "cityname 为必须参数"
+        }
+    }
+
+    try {
+        // 分类
+        let categoryRes = await ctx.state.$mysql.execute(`select * from mt_category;`)
+        const _tree = (id) => {
+            let data = categoryRes[0].filter(item => {
+                return item.cid == id
+            })
+            data.forEach(item => {
+                item.children = _tree(item.id)
+            })
+            return data
+        }
+        let categoryTree = _tree(null)
+
+        // 推荐
+        let cityRes = await ctx.state.$mysql.execute(`select id,cityname from city where cityname="${cityname}"`)
+        if (cityRes[0].length === 0) {
+            return ctx.body = {
+                code: 0,
+                msg: "没有找到当前城市"
+            }
+        }
+
+        let recomendRes = await ctx.state.$mysql.execute(`select id,name,img_url,address_desc,avgPrice,avgScore,commentNum from mt_shop where city_id = ${cityRes[0][0].id} order by avgScore desc limit 15`)
+
+        return ctx.body = {
+            categoryTree,
+            recomend: recomendRes[0]
+        }
+    } catch (e) {
+        console.log("err", e)
+        return ctx.body = {
+            code: 0
+        }
+    }
+})
+
 product_router.post('/meishi/:id', async ctx => {
     let meishi_id = ctx.params.id
     if (!!meishi_id) {
@@ -63,53 +110,6 @@ product_router.post('/meishi/:id', async ctx => {
     }
 })
 
-product_router.post("/home", async ctx => {
-
-    let { cityname } = ctx.request.body
-    if (!cityname) {
-        return ctx.body = {
-            code: -1,
-            msg: "cityname 为必须参数"
-        }
-    }
-
-    try {
-        // 分类
-        let categoryRes = await ctx.state.$mysql.execute(`select * from mt_category;`)
-        const _tree = (id) => {
-            let data = categoryRes[0].filter(item => {
-                return item.cid == id
-            })
-            data.forEach(item => {
-                item.children = _tree(item.id)
-            })
-            return data
-        }
-        let categoryTree = _tree(null)
-
-        // 推荐
-        let cityRes = await ctx.state.$mysql.execute(`select id,cityname from city where cityname="${cityname}"`)
-        if (cityRes[0].length === 0) {
-            return ctx.body = {
-                code: 0,
-                msg: "没有找到当前城市"
-            }
-        }
-
-        let recomendRes = await ctx.state.$mysql.execute(`select id,name,img_url,address_desc,avgPrice,avgScore,commentNum from mt_shop where city_id = ${cityRes[0][0].id} order by avgScore desc limit 15`)
-
-        return ctx.body = {
-            categoryTree,
-            recomend: recomendRes[0]
-        }
-    } catch (e) {
-        console.log("err", e)
-        return ctx.body = {
-            code: 0
-        }
-    }
-})
-
 product_router.post('/meishi/page/:page', async ctx => {
     let page = ctx.params.page || 1
     const pageCount = 20
@@ -145,6 +145,66 @@ product_router.post('/meishi/page/:page', async ctx => {
             cityname,
             area: areaRes,
             categorys,
+            list: rows,
+            likes: likeRes[0]
+        }
+    } catch (e) {
+        console.log(e)
+        return ctx.body = {
+            code: 0,
+            msg: e
+        }
+    }
+})
+
+product_router.post('/lvyou/page/:page',async ctx=>{
+    let page = ctx.params.page || 1
+    const pageCount = 20
+    let { cityname,sort='create_time',level,cateName } = ctx.request.body
+    if (!cityname) {
+        return ctx.body = {
+            code: -1,
+            msg: "cityname 为必须参数"
+        }
+    }
+
+    let where_level = ''
+    if(!level || level == 'all'){
+    }else if(level == "A级"){
+        where_level = `and level in ('3A','4A','5A')`
+    }else{
+        where_level = `and level='${level}'`
+    }
+
+    let where_cate = ''
+    if(!cateName || cateName == 'all'){
+    }else{
+        where_cate = `and cateName='${cateName}'`
+    }
+
+    try {
+        let [cityRes] = await ctx.state.$mysql.execute(`select id from city where cityname="${cityname}"`)
+        if (cityRes.length === 0) {
+            return ctx.body = {
+                code: 0,
+                msg: "没有找到当前城市"
+            }
+        }
+
+        let [cateName] = await ctx.state.$mysql.execute(`select cateName from mt_lvyou group by cateName;`)
+
+        let offset = (page - 1) * pageCount
+        // 每页20条景点信息
+        let [rows] = await ctx.state.$mysql.execute(`select id,name,img_url,address_desc,avgPrice,avgScore,consumers from mt_lvyou where city_id = ${cityRes[0].id} ${where_level} ${where_cate} order by ${sort == "avgPrice" ? "cast(avgPrice as signed)" : sort} desc limit ${offset},${pageCount}`)
+        let [countRes] = await ctx.state.$mysql.execute(`select count(*) as count from mt_lvyou where city_id = ${cityRes[0].id} ${where_level} ${where_cate}`)
+        // 猜你喜欢
+        let likeRes = await ctx.state.$mysql.execute(`select id,name,img_url,address_desc,avgPrice,avgScore from mt_lvyou where city_id = ${cityRes[0].id} order by avgScore desc limit 15`)
+
+        return ctx.body = {
+            code: 1,
+            count: countRes[0].count,
+            cityname,
+            cate: cateName,
             list: rows,
             likes: likeRes[0]
         }
