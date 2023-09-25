@@ -1,6 +1,6 @@
 <template>
     <div class="recommend-container">
-        <div class="index-nav-container undefined"
+        <div class="index-nav-container"
             style="background: linear-gradient(to right, rgb(88, 174, 221) 2%, rgb(66, 191, 205) 97%) rgb(88, 174, 221);">
             <ul class="clearfix ">
                 <li class="title nav-item mf-shang-hei-regular">猜你喜欢</li>
