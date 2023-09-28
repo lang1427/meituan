@@ -1,42 +1,37 @@
 <template>
     <section class="detail-wrap">
         <div class="content">
-            <div class="breadcrumbs"><span><a href="http://gz.meituan.com/">{{ ms_obj.cityname }}美团</a>
-                    &gt;
-                </span><span><a href="http://gz.meituan.com/meishi/">{{ ms_obj.cityname }}美食</a>
-                    &gt;
-                </span><span><a href="http://gz.meituan.com/meishi/c21533/">{{ ms_obj.cityname }}地方菜系</a>
-                </span></div>
+            <div class="breadcrumbs"><span><nuxt-link to="/">{{ lvyou_obj.cityname }}美团</nuxt-link>                 
+                &gt;
+                </span><span><nuxt-link to="/lvyou/page/1">{{ lvyou_obj.cityname }}景点</nuxt-link>
+                </span>
+            </div>
             <div class="details clearfix">
                 <div class="d-left">
                     <div class="name">
-                        <span><b></b>食品安全档案</span>{{ ms_obj.name }}
+                        <span><b></b>旅游安全档案</span>{{ lvyou_obj.name }}
                     </div>
                     <div class="score clearfix">
                         <div class="star-cont">
                             <el-rate v-model="score" disabled text-color="#ff9900"></el-rate>
                         </div>
-                        <p>{{ ms_obj.avgScore }}分<span>人均￥{{ ms_obj.avgPrice }}</span>
+                        <p>{{ lvyou_obj.avgScore }}分<span>人均￥{{ lvyou_obj.avgPrice }}</span>
                         </p>
                     </div>
                     <div class="address">
-                        <amap v-show="show_map" :point="[ms_obj.longitude,ms_obj.latitude]" :width="650"/>
-                        <p>地址：{{ ms_obj.address_desc }}<b @click="showMap"></b>
+                        <amap v-show="show_map" :point="[lvyou_obj.longitude,lvyou_obj.latitude]" :width="650"/>
+                        <p>地址：{{ lvyou_obj.address_desc }}<b @click="showMap"></b>
                         </p>
-                        <p>电话：{{ ms_obj.phone }}
-                        </p>
-                        <p>营业时间：{{ ms_obj.open_time }}</p>
+                        <p>电话：{{ lvyou_obj.phone }}</p>
+                        <p>营业时间：{{ lvyou_obj.open_time }}</p>
+                        <p>消费人次：{{ lvyou_obj.consumers }}</p>
+                        <p>景点类型：{{ lvyou_obj.cateName }}</p>
+                        <p>景点级别：{{ lvyou_obj.level }}</p>
                     </div>
-                    <ul class="tags clearfix">
-                        <li><img src="~/assets/images/tags/wifi.png">提供wifi
-                        </li>
-                        <li><img src="~/assets/images/tags/parking.png">停车位
-                        </li>
-                    </ul>
                 </div>
                 <div class="d-right">
                     <div class="big">
-                        <div class="imgbox" style="height: 100%; width: 100%;"><img :src="ms_obj.img_url">
+                        <div class="imgbox" style="height: 100%; width: 100%;"><img :data-src="lvyou_obj.img_url">
                         </div>
                     </div>
                 </div>
@@ -45,23 +40,8 @@
             <div class="btm-cont clearfix">
                 <div class="btm-left">
                     <div class="recommend">
-                        <h3>推荐菜</h3>
-                        <div class="cont">
-                            <ul class="clearfix">
-                                <li v-for="item of ms_obj.topMenus" :key="item.title">
-                                    <div class="pic">
-                                        <div class="imgbox" style="height: 100%; width: 100%;"><img :src="item.img_url">
-                                        </div>
-                                        <div class="desc"><span class="truncate">{{ item.title }}</span>
-                                            <b>￥{{ item.price }}</b>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="list clearfix">
-                                <span v-for="item of ms_obj.menus" :key="item.title">{{ item.title }}</span>
-                            </div>
-                        </div>
+                        <h3>景点介绍</h3>
+                        <div class="cont">{{ lvyou_obj.introduction || "暂无相关介绍" }}</div>
                     </div>
                     <div class="comment">
                         <div class="total">
@@ -87,18 +67,10 @@
                                         <div class="source">
                                             <div class="star-cont">
                                                 <ul class="stars-ul">
-                                                    <li><i class="iconfont el-icon-star-on"></i></li>
-                                                    <li><i class="iconfont el-icon-star-on"></i></li>
-                                                    <li><i class="iconfont el-icon-star-on"></i></li>
-                                                    <li><i class="iconfont el-icon-star-on"></i></li>
-                                                    <li><i class="iconfont el-icon-star-on"></i></li>
+                                                    <li v-for="item in 5" :key="item"><i class="iconfont el-icon-star-on"></i></li>
                                                 </ul>
                                                 <ul class="stars-ul stars-light" style="width: 75.6px;">
-                                                    <li><i class="iconfont el-icon-star-on"></i></li>
-                                                    <li><i class="iconfont el-icon-star-on"></i></li>
-                                                    <li><i class="iconfont el-icon-star-on"></i></li>
-                                                    <li><i class="iconfont el-icon-star-on"></i></li>
-                                                    <li><i class="iconfont el-icon-star-on"></i></li>
+                                                    <li v-for="item in 5" :key="item"><i class="iconfont el-icon-star-on"></i></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -127,22 +99,10 @@
                                                         <div class="paginatedThumbnails">
                                                             <div class="thumbnails">
                                                                 <div class="thumbnail active"><img
-                                                                        src="http://47.93.187.37:8000/img/shaitu/54034c23d4fe013fe8181194a6b3e3491505007.jpg">
+                                                                        data-src="http://47.93.187.37:8000/img/shaitu/54034c23d4fe013fe8181194a6b3e3491505007.jpg">
                                                                 </div>
                                                                 <div class="thumbnail"><img
-                                                                        src="http://47.93.187.37:8000/img/shaitu/347419eacc636a0f96a60d9c27b14f26204043.jpg">
-                                                                </div>
-                                                                <div class="thumbnail"><img
-                                                                        src="http://47.93.187.37:8000/img/shaitu/8ab7ffeeb473e477d79e88453a96eccc222211.jpg">
-                                                                </div>
-                                                                <div class="thumbnail"><img
-                                                                        src="http://47.93.187.37:8000/img/shaitu/4c5efe0d6dc6a0709c135b3c65e796641495126.jpg">
-                                                                </div>
-                                                                <div class="thumbnail"><img
-                                                                        src="http://47.93.187.37:8000/img/shaitu/22e8bda13dc216d4781b660d07a6f2ad178148.jpg">
-                                                                </div>
-                                                                <div class="thumbnail"><img
-                                                                        src="http://47.93.187.37:8000/img/shaitu/42d2f57e729ad1b71bce088e44fe97e0133554.jpg">
+                                                                       data-src="http://47.93.187.37:8000/img/shaitu/347419eacc636a0f96a60d9c27b14f26204043.jpg">
                                                                 </div>
                                                             </div>
                                                             <div type="button" class="arrow right-arrow"></div>
@@ -163,23 +123,22 @@
                     </div>
                 </div>
                 <div class="btm-right">
-                    <guess-you-like :likes=ms_obj.likes></guess-you-like>
+                    <guess-you-like :likes=lvyou_obj.likes></guess-you-like>
                 </div>
             </div>
             <div class="near-cont">
-                <h3>附近商家</h3>
+                <h3>附近景点</h3>
                 <div class="nearby">
                     <ul>
-                        <li v-for="item of ms_obj.nearby" :key="item.id"><nuxt-link :to="'/meishi/' + item.id">
+                        <li v-for="item of lvyou_obj.nearby" :key="item.id"><nuxt-link :to="'/meishi/' + item.id">
                                 <div class="pic">
-                                    <div class="imgbox" style="height: 100%; width: 100%;"><img :src="item.img_url">
+                                    <div class="imgbox" style="height: 100%; width: 100%;"><img :data-src="item.img_url">
                                     </div>
                                 </div>
                                 <p class="name truncate">{{ item.name }}</p>
                                 <p class="source">
                                     <span>{{ item.avgScore }}分</span>
                                 </p>
-                                <p class="source desc"></p>
                                 <p class="price"><b>￥</b>{{ item.avgPrice }}<b>起</b></p>
                             </nuxt-link></li>
                     </ul>
@@ -199,23 +158,23 @@ export default {
     },
     data() {
         return {
-            ms_obj: {},
+            lvyou_obj: {},
             show_map:false
         }
     },
     computed: {
         score() {
-            return Number(this.ms_obj.avgScore)
+            return Number(this.lvyou_obj.avgScore)
         }
     },
     async asyncData(ctx) {
-        let meishi_id = ctx.route.params.id
+        let lvyou_id = ctx.route.params.id
         try {
-            let { data } = await ctx.$axios.post(`/product/meishi/${meishi_id}`)
+            let { data } = await ctx.$axios.post(`/product/lvyou/${lvyou_id}`)
             if (data.code === 1) {
-                return { ms_obj: data.data }
+                return { lvyou_obj: data.data }
             } else if (data.code === 404) {
-                return { ms_obj: null }
+                return { lvyou_obj: null }
             }
         } catch (e) {
             // console.log(e)

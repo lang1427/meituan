@@ -157,6 +157,48 @@ product_router.post('/meishi/page/:page', async ctx => {
     }
 })
 
+product_router.post('/lvyou/:id', async ctx => {
+    let lvyou_id = ctx.params.id
+    if (!!lvyou_id) {
+        try {
+
+            // 景点信息
+            let [rows] = await ctx.state.$mysql.execute(`select c.id,cityname,lv.id,name,address_desc,city_id,lv.img_url,longitude,latitude,phone,open_time,lv.introduction,avgPrice,avgScore,consumers,cateName,level
+           from mt_lvyou as lv left join city as c on lv.city_id=c.id where lv.id=${lvyou_id}`)
+
+            if (isArray(rows) && rows.length === 0) {
+                return ctx.body = {
+                    code: 404
+                }
+            }
+
+            // 附近景点信息  附近10公里 不包含自身店铺
+            let { longitude, latitude } = rows[0]
+            let { minlng, maxlng, minlat, maxlat } = getPosiRange(parseFloat(longitude), parseFloat(latitude), 10)
+            let nearbyRes = await ctx.state.$mysql.execute(`select id,name,img_url,longitude,latitude,avgPrice,avgScore from mt_lvyou where longitude > ${minlng} and longitude < ${maxlng} and latitude > ${minlat} and latitude < ${maxlat} and id != ${lvyou_id} limit 10`)
+
+            // 猜你喜欢 本市 评分从大到小排列 不包含自身店铺 15个
+            let likeRes = await ctx.state.$mysql.execute(`select id,name,img_url,address_desc,avgPrice,avgScore from mt_lvyou where id != ${lvyou_id} and city_id = ${rows[0].city_id} order by avgScore desc limit 15`)
+
+            let data = Object.assign(rows[0], { nearby: nearbyRes[0], likes: likeRes[0] })
+
+            return ctx.body = {
+                code: 1,
+                data,
+            }
+        } catch (e) {
+            console.log(e)
+            return ctx.body = {
+                code: 404
+            }
+        }
+    } else {
+        return ctx.body = {
+            code: 404
+        }
+    }
+})
+
 product_router.post('/lvyou/page/:page',async ctx=>{
     let page = ctx.params.page || 1
     const pageCount = 20

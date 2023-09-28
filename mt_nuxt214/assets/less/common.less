@@ -74,6 +74,27 @@ input {
     padding: 19px 0;
 }
 
+.star-cont {
+    display: inline-block;
+    width: 128px;
+    height: 24px;
+    position: relative;
+
+    .stars-ul {
+        li {
+            display: inline-block;
+        }
+    }
+
+    .stars-light {
+        color: #F90;
+        position: absolute;
+        top: 0;
+        overflow: hidden;
+        height: 20px;
+    }
+}
+
 .poiList-wrap {
     a {
         text-decoration: none;
@@ -356,6 +377,578 @@ input {
         .right {
             width: 230px;
             float: right;
+        }
+    }
+}
+
+.imgbox {
+    display: block;
+    width: auto;
+    height: auto;
+    background: url(~/assets/images/meituan.png) center center no-repeat #e0e0e0;
+    background-size: 60% auto;
+}
+
+.detail-wrap {
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+    }
+
+    .truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .line {
+        height: 1px;
+        overflow: hidden;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .com-image-viewer {
+        overflow: hidden;
+        cursor: pointer;
+        padding-top: 10px;
+        position: static;
+        background: #fff;
+
+        .imgs-content {
+            width: auto;
+            padding-top: 180px;
+            position: relative;
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+    }
+
+    .content {
+        width: 1190px;
+        margin: auto;
+    
+        a {
+            color: #222;
+        }
+    
+        .details {
+            font-size: 12px;
+            color: #666;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px 20px 33px 20px;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 5px 14px 0 rgba(0, 0, 0, .1);
+    
+    
+            .d-left {
+                float: left;
+                width: 748px;
+                padding-right: 20px;
+    
+                .name {
+                    font-size: 26px;
+                    line-height: 37px;
+    
+                    span {
+                        float: right;
+                        color: #00c9b3;
+                        font-size: 12px;
+                        cursor: pointer;
+    
+                        b {
+                            background-image: url(~/assets/images/safe.png);
+                            width: 15px;
+                            height: 18px;
+                            background-size: 100% 100%;
+                            display: inline-block;
+                            margin-right: 6px;
+                            vertical-align: middle;
+                            margin-top: -3px;
+                        }
+                    }
+                }
+    
+                .score {
+                    font-size: 14px;
+                    height: 14px;
+                    margin: 6px 0 17px 0;
+    
+                    p {
+                        display: inline-block;
+                        margin-left: 6px;
+                    }
+                }
+    
+                .address {
+                    border-top: 1px solid #e5e5e5;
+                    border-bottom: 1px solid #e5e5e5;
+                    padding: 16px 0 11px 0;
+    
+                    p {
+                        font-size: 14px;
+                        line-height: 20px;
+                        margin-bottom: 10px;
+    
+                        b {
+                            background-image: url(~/assets/images/meishi-web.png);
+                            width: 14px;
+                            height: 14px;
+                            display: inline-block;
+                            background-position-x: -28px;
+                            background-size: auto 14px;
+                            vertical-align: -2px;
+                            display: inline-block;
+                            margin-left: 6px;
+                            vertical-align: middle;
+                            margin-top: -3px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+    
+                .tags {
+                    padding-top: 20px;
+    
+                    li {
+                        float: left;
+                        margin-right: 16px;
+                        line-height: 17px;
+    
+                        img {
+                            display: block;
+                            margin: auto;
+                            margin-bottom: 11px;
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 0;
+                        }
+                    }
+                }
+            }
+    
+            .d-right {
+                float: left;
+                width: 380px;
+                overflow: hidden;
+                cursor: pointer;
+    
+                .imgbox {
+                    display: block;
+                    width: auto;
+                    height: auto;
+                    background: url(~/assets/images/meituan.png) center center no-repeat #e0e0e0;
+                    background-size: 60% auto;
+                }
+    
+                .big {
+                    height: 265px;
+                    width: 100%;
+                }
+            }
+        }
+    
+        .btm-cont {
+            color: #222;
+            padding-top: 40px;
+    
+            h3 {
+                font-size: 20px;
+                line-height: 26px;
+                margin-bottom: 8px;
+            }
+    
+            .btm-left {
+                width: 950px;
+                float: left;
+    
+                .recommend {
+                    overflow: hidden;
+                    margin-bottom: 40px;
+    
+                    .list {
+                        padding: 25px 0 0 6px;
+    
+                        span {
+                            display: block;
+                            float: left;
+                            margin: 0 20px 19px 0;
+                            font-size: 16px;
+                            line-height: 20px;
+                            color: #333;
+                        }
+                    }
+    
+                    ul {
+                        width: 910px;
+    
+                        li {
+                            float: left;
+                            width: 130px;
+                            margin-right: 20px;
+    
+                            .pic {
+                                position: relative;
+                                height: 130px;
+                                border-radius: 4px;
+    
+                                .desc {
+                                    font-size: 14px;
+                                    width: 100%;
+                                    background: rgba(0, 0, 0, .3);
+                                    padding: 8px 0;
+                                    text-align: center;
+                                    color: #fff;
+                                    position: absolute;
+                                    bottom: 0;
+                                    left: 0;
+    
+                                    span {
+                                        vertical-align: bottom;
+                                        max-width: 60%;
+                                        display: inline-block;
+                                    }
+                                }
+                            }
+                        }
+                    }
+    
+                    .cont {
+                        border: 1px solid #e5e5e5;
+                        background-color: #fff;
+                        padding: 33px 32px 26px 32px;
+                        border-radius: 4px;
+                    }
+                }
+    
+                .comment {
+                    margin-bottom: 40px;
+    
+                    .total {
+                        font-size: 20px;
+                        line-height: 26px;
+    
+                        .sort {
+                            cursor: pointer;
+                            float: right;
+                            font-size: 12px;
+                            color: #999;
+    
+                            .on {
+                                color: #00c9b3;
+                            }
+    
+                            span {
+                                font-size: 12px;
+                                margin-left: 20px;
+                            }
+                        }
+                    }
+    
+                    .com-cont {
+                        margin-top: 8px;
+                        background: #fff;
+                        border: 1px solid #e5e5e5;
+                        border-radius: 4px;
+                        padding: 0 20px 40px 20px;
+                        color: #666;
+    
+                        .tags {
+                            padding-top: 15px;
+    
+                            li {
+                                float: left;
+                                font-size: 14px;
+                                line-height: 34px;
+                                padding: 0 10px;
+                                border: 1px solid #e5e5e5;
+                                border-radius: 2px;
+                                margin: 0 10px 10px 0;
+                                cursor: pointer;
+                            }
+                        }
+    
+                        .sea {
+                            margin-top: 22px;
+                            font-size: 14px;
+    
+                            span {
+                                display: inline-block;
+                                line-height: 20px;
+                                cursor: pointer;
+    
+                                b {
+                                    width: 15px;
+                                    height: 15px;
+                                    border-radius: 2px;
+                                    border: 1px solid #ccc;
+                                    display: inline-block;
+                                    vertical-align: text-bottom;
+                                    margin-right: 6px;
+                                }
+                            }
+                        }
+    
+                        .list {
+                            padding: 30px 0 0 0;
+    
+                            .header {
+                                width: 60px;
+                                height: 60px;
+                                border-radius: 50%;
+                                float: left;
+    
+                                .imgbox {
+                                    border-radius: 50%;
+                                }
+    
+                                .close {
+                                    width: 30px;
+                                    height: 30px;
+                                    font-size: 30px;
+                                    cursor: pointer;
+                                    display: inline-block;
+                                    background: none;
+                                    color: #fff;
+                                    border: 0;
+                                }
+                            }
+    
+                            .info {
+                                float: left;
+                                padding-left: 20px;
+                                width: 828px;
+    
+                                .name {
+                                    font-size: 16px;
+                                    color: #222;
+                                    line-height: 22px;
+                                    margin-bottom: 1px;
+                                }
+    
+                                .date {
+                                    font-size: 12px;
+                                    line-height: 20px;
+                                    color: #999;
+    
+                                    span {
+                                        float: right;
+                                    }
+                                }
+    
+                                .source {
+                                    line-height: 14px;
+                                    margin-top: 3px;
+                                    height: 16px;
+                                    font-size: 11px;
+                                }
+    
+                                .desc {
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                    padding-top: 13px;
+                                }
+    
+                                .noShowBigImg {
+                                    .content-arrow-imgs {
+                                        width: 460px;
+                                        display: none;
+                                        position: relative;
+    
+                                        .figure {
+                                            width: 460px;
+                                            margin: auto;
+                                            position: relative;
+                                            overflow: hidden;
+    
+                                            .image-box {
+                                                width: 100%;
+                                                height: 100%;
+                                            }
+    
+                                            .footer {
+                                                position: absolute;
+                                                bottom: 0;
+                                                width: 100%;
+                                                height: 30px;
+                                                background: rgba(0, 0, 0, .4);
+    
+                                                .footerCount {
+                                                    line-height: 30px;
+                                                    color: #fff;
+                                                    font-size: 14px;
+                                                    padding-left: 12px;
+                                                }
+                                            }
+                                        }
+                                    }
+    
+                                    .paginatedThumbnails {
+                                        width: 828px;
+                                        height: 160px;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        bottom: 20px;
+                                        overflow: hidden;
+    
+                                        .thumbnails {
+                                            position: relative;
+                                            width: 10000px;
+    
+                                            .active {
+                                                border-radius: 0;
+                                                border-color: #fff !important;
+                                            }
+    
+                                            .thumbnail {
+                                                width: 160px;
+                                                height: 160px;
+                                                margin-right: 0;
+                                                border: 10px solid #fff;
+                                                cursor: pointer;
+                                                display: inline-block;
+    
+                                                img {
+                                                    width: 140px;
+                                                    height: 140px;
+                                                }
+                                            }
+                                        }
+    
+                                        .arrow {
+                                            top: 10px;
+                                            height: 140px;
+                                            cursor: pointer;
+                                        }
+    
+                                        .right-arrow {
+                                            right: 0px;
+                                            // background-image: url(../../../assets/da750bb66f7ebbc8.png);
+                                            background-size: 100% 100%;
+                                        }
+                                    }
+                                }
+    
+                                .like-cont {
+                                    text-align: right;
+                                    margin: 17px 0 16px 0;
+    
+                                    .like {
+                                        display: inline-block;
+                                        cursor: pointer;
+                                        font-size: 12px;
+                                        color: #666;
+    
+                                        b {
+                                            background-image: url(~/assets/images/like.png);
+                                            background-size: 100% 100%;
+                                            width: 15px;
+                                            height: 16px;
+                                            display: inline-block;
+                                            margin-right: 6px;
+                                            vertical-align: text-bottom;
+                                        }
+    
+                                        span {
+                                            vertical-align: middle;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+    
+                        .mt-pagination {
+                            text-align: center;
+                            margin-top: 40px;
+                        }
+                    }
+                }
+            }
+    
+            .btm-right {
+                width: 230px;
+                float: right;
+                padding-top: 34px;
+            }
+    
+        }
+    
+        .near-cont {
+            h3 {
+                font-size: 20px;
+                line-height: 26px;
+                color: #333;
+            }
+    
+            .nearby {
+                margin-top: 8px;
+                background: #fff;
+                border: 1px solid #e5e5e5;
+                border-radius: 4px;
+                padding: 20px;
+                padding-bottom: 0;
+                overflow: hidden;
+                color: #999;
+    
+                ul {
+                    width: 1200px;
+    
+                    li {
+                        height: 241px;
+                        overflow: hidden;
+                        float: left;
+                        width: 214px;
+                        margin: 0 20px 22px 0;
+    
+                        .pic {
+                            height: 120px;
+                            border-radius: 4px;
+                        }
+    
+                        .name {
+                            font-size: 16px;
+                            line-height: 22px;
+                            color: #222;
+                            margin: 10px 0 6px 0;
+                        }
+    
+                        .source {
+                            color: #999;
+                            font-size: 12px;
+                            line-height: 17px;
+    
+                            >span {
+                                margin-right: 4px;
+                            }
+                        }
+    
+                        .desc {
+                            margin: 1px 0 3px;
+                            min-height: 33px;
+                            display: -webkit-box;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 2;
+                        }
+    
+                        .price {
+                            font-size: 22px;
+                            line-height: 27px;
+                            color: #ff6600;
+    
+                            b {
+                                font-weight: normal;
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
