@@ -64,11 +64,13 @@ const geo_router = require("./api/geo")
 const user_router = require("./api/user")
 const product_router = require('./api/product')
 const upload_router = require('./api/upload')
+const maoyan_router = require("./api/maoyan")
 
 app.use(geo_router.routes()).use(geo_router.allowedMethods())
 app.use(user_router.routes()).use(user_router.allowedMethods())
 app.use(product_router.routes()).use(product_router.allowedMethods())
 app.use(upload_router.routes()).use(upload_router.allowedMethods())
+app.use(maoyan_router.routes()).use(maoyan_router.allowedMethods())
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')

@@ -5,9 +5,9 @@
 - `mt_nuxt214` NuxtJS框架 Koa后端服务 PC端 SSR 美团项目
 - `mt_server` 数据库表设计 相关的假造爬取数据内容
 
+目前支持获取到的数据有  广州，深圳，上海
 
 对中文进行编码 : `encodeURIComponent(username)`
-
 
 ### 高德地图
 

@@ -79,3 +79,18 @@ CREATE TABLE `mt_lvyou` (
   `create_time` INT(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
+
+
+CREATE TABLE `mt_maoyan` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `genre` VARCHAR(100) DEFAULT '' COMMENT '类型',
+  `frt` VARCHAR(30) DEFAULT '' COMMENT '首次上映时间',
+  `img` VARCHAR(180) NOT NULL COMMENT '图片',
+  `src` VARCHAR(10) DEFAULT '' COMMENT '源国家',
+  `score` FLOAT(2,1) DEFAULT 0 COMMENT '评分',
+  `actor` VARCHAR(50) NOT NULL COMMENT '主演',
+  `watch` INT(11) NOT NUll COMMENT '关注数',
+  `create_time` INT(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
