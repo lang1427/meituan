@@ -100,6 +100,7 @@ CREATE TABLE `mt_waimai` (
   `name` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '店铺名称',
   `city_id` INT(11) NOT NULL COMMENT '所在城市id',
   `img_url` VARCHAR(180) NOT NULL DEFAULT 'default.png' COMMENT '店铺图片',
+  `address_desc` VARCHAR(100) DEFAULT '' COMMENT '店铺地址',
   `longitude` VARCHAR(10) NOT NULL COMMENT '店铺经纬度',
   `latitude` VARCHAR(10) NOT NULL,
   `open_time` VARCHAR(100) COMMENT '营业时间',
