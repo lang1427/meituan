@@ -21,8 +21,8 @@
           <label><checkbox style="transform:scale(0.7);" value="cb" activeBackgroundColor="#ffd100" color="#ccc" /></label>
           <view class="confirm-text">
             <text>我已阅读并同意</text>
-			<navigator hover-class="none" url="https://rules-center.meituan.com/m/detail/4" style="color: #3488ff" >《美团用户协议》、</navigator>
-			<navigator hover-class="none" url="https://rules-center.meituan.com/m/detail/2" style="color: #3488ff" >《隐私政策》</navigator>
+			<text @click="gotoView('https://rules-center.meituan.com/m/detail/4')" style="color: #3488ff" >《美团用户协议》、</text>
+			<text @click="gotoView('https://rules-center.meituan.com/m/detail/2')" style="color: #3488ff" >《隐私政策》</text>
 			<text>并授权美团使用该美团账号信息（如昵称、头像、收货地址）进行统一管理</text>
           </view>
         </view>
@@ -48,6 +48,11 @@ export default {
     },
 	InputFocus(val){
 		this.focus_val = val
+	},
+	gotoView(url){
+		uni.navigateTo({
+			url: '/pages/common/webview?url=' + url
+		})
 	},
 	login(){
 		

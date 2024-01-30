@@ -7,18 +7,22 @@
 			}
 		},
 		{
-			"path": "pages/login/login",
-			"style": {
-				"app-plus": {
-					"titleNView": false    // 去除顶部导航栏
-				  }		  
-			}
+            "path" : "pages/common/webview"
+		},
+		{
+			"path": "pages/login/login"
+		},
+		{
+			"path":"pages/useraccount/retrievepassword"
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"titleNView": false    // 去除顶部导航栏
+		}		
 	}
 }
