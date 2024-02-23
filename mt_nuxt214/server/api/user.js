@@ -7,7 +7,7 @@ const user_router = new Router({
 const Redis = require("ioredis")
 const redis = new Redis()
 
-const { isEmail } = require('methods-util/dist/node/methods_util.cjs')
+const { isEmail,isStrictMobile } = require('methods-util/dist/node/methods_util.cjs')
 const { aesEncode, aesDecode, SmtpServer, createSlat, hash256, formatDate } = require('../util')
 
 user_router.post('/signup', async ctx => {
@@ -271,6 +271,54 @@ user_router.post('/change/password', async ctx => {
             code: 0,
             msg: e
         }
+    }
+})
+
+
+// 移动平台
+user_router.post('/m_signin',async ctx =>{
+    let { user, password } = ctx.request.body
+
+    if (!user || !password) {
+        return ctx.body = {
+            code: -1,
+            msg:"账号和密码不能为空"
+        }
+    }
+
+    if (!(isEmail(user) || isStrictMobile(user))) {
+        return ctx.body = {
+            code: -1,
+            msg:"不是一个有效的账号"
+        }
+    }
+
+    try{
+        let userRes = await ctx.state.$mysql.query(`select slat from mt_users where email="${user}" or iphone="${user}"`)
+
+        if (userRes[0].length == 0) {
+            let createTime = parseInt(Date.now() / 1000)
+            let nickname = `NF` + parseInt(Math.random() * 1e10)
+            // 加盐加密
+            let slat = createSlat()
+            let pwd = hash256(slat + password)
+        
+            const [rows] = await ctx.state.$mysql.execute(`INSERT INTO mt_users (username,${user.includes('@') ? 'email' : 'iphone'},password,slat,grade,create_time) VALUES (?,?,?,?,?,?);`, [nickname, user, pwd, slat, grade, createTime])
+            if (rows.affectedRows === 1) {
+
+            }else{
+                return ctx.body = {
+                    code:-1,
+                    msg:"无效账户~账号注册失败"
+                }
+            }
+        }
+
+        return ctx.body = {
+            msg:"登录流程"
+        }
+    }catch(err){
+        console.log(err)
     }
 })
 

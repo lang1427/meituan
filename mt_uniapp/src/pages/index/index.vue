@@ -9,7 +9,7 @@
           <text class="search-text">请输入商家名、品类或者商圈</text>
           <text class="search-btn">搜索</text>
         </navigator>
-        <navigator hover-class="none" class="normal" url="/">
+        <navigator hover-class="none" class="normal" url="/pages/login/login">
           <text class="iconfont icon-user">&#xe62e;</text>
         </navigator>
       </view>

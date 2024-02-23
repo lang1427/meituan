@@ -4,11 +4,13 @@ const session = require('koa-generic-session');
 const redisStore = require('koa-redis');
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+const cors = require('@koa/cors');
 
 const mysql = require("mysql2/promise")
 const CONF = require('./conf')
 
 const app = new Koa()
+app.use(cors());
 
 app.use(async (ctx, next) => {
 

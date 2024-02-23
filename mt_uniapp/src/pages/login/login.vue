@@ -4,7 +4,7 @@
 
     <view class="wrapper">
       <view :class="['email-num-wrapper',focus_val == 'email' ? 'active' : '']">
-        <input class="email-num-input" v-model="email" type="email" placeholder="请输入邮箱" autocomplete="off" @focus="InputFocus('email')" @blur="focus_val=''"/>
+        <input class="email-num-input" v-model="email" type="email" placeholder="请输入邮箱/手机号" autocomplete="off" @focus="InputFocus('email')" @blur="focus_val=''"/>
         <text class="iconfont clear-input" @click="email=''" v-show="!!email">&#xe60e;</text>
       </view>
       <view :class="['verify-code-wrapper',focus_val == 'pwd' ? 'active' : '']">
@@ -14,11 +14,14 @@
         <navigator class="retrievepassword" hover-class="none" url="/pages/useraccount/retrievepassword">忘记密码</navigator>
       </view>
       <text class="account-tip" v-show="!!accountTip">{{ accountTip }}</text>
-      <button class="login-btn" hover-class="none" type="default" @click="login">登录</button>
+      <button class="login-btn" hover-class="none" type="default" :disabled="!email || !pwd" @click="login">登录</button>
+	  <text class="signup-tip">未注册的邮箱/手机号验证后自动创建美团账户</text>
       <view class="user-confirm">
-        <text class="confirm-tip">请先阅读并勾选用户协议</text>
+        <text class="confirm-tip" :style="confirmTipStyle">请先阅读并勾选用户协议</text>
         <view class="confirm-wrapper">
-          <label><checkbox style="transform:scale(0.7);" value="cb" activeBackgroundColor="#ffd100" color="#ccc" /></label>
+		  <checkbox-group @change="handleCheckboxChange">
+          	<label><checkbox style="transform:scale(0.7);" value="license" activeBackgroundColor="#ffd100" color="#ccc" /></label>
+		  </checkbox-group>
           <view class="confirm-text">
             <text>我已阅读并同意</text>
 			<text @click="gotoView('https://rules-center.meituan.com/m/detail/4')" style="color: #3488ff" >《美团用户协议》、</text>
@@ -37,10 +40,21 @@ export default {
     return {
       accountTip: "", // 邮箱或密码错误，请重新输入
       showPassword: true,
+	  readLic: false,
+	  checkLic:false,
 	  focus_val: "",
 	  email: "",
 	  pwd: ""
     };
+  },
+  computed:{
+	confirmTipStyle(){
+		if(this.readLic == false){
+			return "visibility: hidden;"
+		}else{
+			return "visibility: visible;"
+		}
+	}
   },
   methods: {
     changePassword: function () {
@@ -54,8 +68,30 @@ export default {
 			url: '/pages/common/webview?url=' + url
 		})
 	},
+	handleCheckboxChange(event){
+		if(event.mp.detail.value.indexOf('license') != -1){
+			this.checkLic = true
+			this.readLic = false
+		}else{
+			this.checkLic = false
+		}
+	},
 	login(){
-		
+		if(!this.checkLic){
+			this.readLic = true
+			return false
+		}
+		const requestTask = uni.request({
+			url: 'http://localhost:3000/user/m_signin',
+			method:"POST",
+			data: {
+				user: this.email,
+				password: this.pwd
+			},
+			success: function(res) {
+				
+			}
+		});
 	}
   },
 };
@@ -109,6 +145,14 @@ export default {
 		}
 		.login-btn{
 			margin-top: 80rpx;
+		}
+		.signup-tip{
+			margin-top:24rpx;
+			font-size:24rpx;
+			color: rgba(0,0,0,0.50);
+			display: inline-block;
+			width: 100%;
+			text-align: center;
 		}
 		.user-confirm{
 			.confirm-tip{
